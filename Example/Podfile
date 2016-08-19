@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'ALLoadingView_Example' do
-  pod 'ALLoadingView', :path => '../'
+  pod 'ALLoadingView', :path => '../ALLoadingView.podspec'
 
   target 'ALLoadingView_Tests' do
     inherit! :search_paths

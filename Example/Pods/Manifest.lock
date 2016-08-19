@@ -1,5 +1,5 @@
 PODS:
-  - ALLoadingView (0.1.0)
+  - ALLoadingView (0.1.3)
 
 DEPENDENCIES:
   - ALLoadingView (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ALLoadingView: f62cfc9f98e674574f47bea30403c72236347214
+  ALLoadingView: 95fcc847a1d1581432b2d799f1da4e5b4012509e
 
 PODFILE CHECKSUM: bfc77bf60838235fc32bceda7349df6184940c06
 
