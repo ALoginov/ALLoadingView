@@ -1,11 +1,10 @@
+source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'ALLoadingView_Example' do
-  pod 'ALLoadingView', :path => '../ALLoadingView.podspec'
+    pod 'ALLoadingView', :path => '../ALLoadingView.podspec'
+end
 
-  target 'ALLoadingView_Tests' do
-    inherit! :search_paths
-
-    
-  end
+target 'ALLoadingView_Tests' do
+    pod 'ALLoadingView', :path => '../ALLoadingView.podspec'
 end
