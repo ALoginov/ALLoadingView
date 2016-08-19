@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ALLoadingView_Example' do
+  pod 'ALLoadingView', :path => '../'
+
+  target 'ALLoadingView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
