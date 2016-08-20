@@ -1,11 +1,11 @@
 # ALLoadingView
 
-[![CI Status](http://img.shields.io/travis/ALoginov/ALLoadingView.svg?style=flat)](https://travis-ci.org/ALoginov/ALLoadingView)
 [![Version](https://img.shields.io/cocoapods/v/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
 [![License](https://img.shields.io/cocoapods/l/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
 [![Platform](https://img.shields.io/cocoapods/p/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
+[![Language](https://img.shields.io/badge/Swift-2.2-orange.svg)](http://cocoapods.org/pods/ALLoadingView)
 
-`ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress. Written in `Swift 2.0`
+`ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress. Written in `Swift 2.2`
 
 [![ALLV Screenshot 1](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1.png)
 [![ALLV Screenshot 2](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2.png)
@@ -14,8 +14,6 @@
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-## Requirements
 
 ## Installation
 ### Manually
@@ -40,7 +38,7 @@ ALLoadingView.manager.hideLoadingViewWithDelay(2.0)
 ALLoadingView.manager.blurredBackground = true
 ALLoadingView.manager.showLoadingViewOfType(.MessageWithIndicatorAndCancelButton, windowMode: .Fullscreen, completionBlock: nil)
 ALLoadingView.manager.cancelCallback = {
-ALLoadingView.manager.hideLoadingView()
+    ALLoadingView.manager.hideLoadingView()
 }
 ```
 ### Resetting values to defaults
