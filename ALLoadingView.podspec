@@ -27,8 +27,8 @@ s.requires_arc = true
 
 s.ios.deployment_target = '8.0'
 
-s.source_files = "ALLoadingView/**/*.swift"
-s.resource_bundles = {
-'ALLoadingView' => ['Pod/Assets/*.png']
-}
+s.source_files = "ALLoadingView/**/*.{swift}"
+# s.resource_bundles = {
+# 'ALLoadingView' => ['ALLoadingView/Assets/**/*.png']
+# }
 end
