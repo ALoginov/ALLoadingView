@@ -15,6 +15,9 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+### Try without loading
+You can try the project on [CocoaControls project page](https://www.cocoacontrols.com/controls/alloadingview) or directly at [Appetize.io page](https://appetize.io/app/0p8hwrukfhq096bz8nzu29e5aw?device=iphone5s&scale=75&orientation=portrait&osVersion=8.4).
+
 ## Installation
 ### Manually
 * Drag the `ALLoadingView.swift` file into your project
