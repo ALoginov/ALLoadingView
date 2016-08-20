@@ -14,7 +14,7 @@
     "file": "LICENSE"
   },
   "authors": {
-    "ALoginov": "artemloginov@me.com"
+    "ALoginov": "artemloginov@dilarc.com"
   },
   "source": {
     "git": "https://github.com/ALoginov/ALLoadingView.git",
@@ -24,5 +24,5 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "ALLoadingView/Classes/ALLoadingView.swift"
+  "source_files": "ALLoadingView/**/*.swift"
 }
