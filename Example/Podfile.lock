@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../ALLoadingView.podspec"
 
 SPEC CHECKSUMS:
-  ALLoadingView: 0dc79d16003d55d5a6e5cff0907bff8e6aee45fd
+  ALLoadingView: 38cb445ffe322bf01f614b621ba4fd3fbefd2208
 
 PODFILE CHECKSUM: 165b8480b1e88eb8945fb3e44d3c77288c109d35
 

@@ -25,7 +25,7 @@ import UIKit
 typealias ALLVCompletionBlock = () -> Void
 typealias ALLVCancelBlock = () -> Void
 
-enum ALLVType {
+public enum ALLVType {
     case Default
     case Message
     case MessageWithIndicator
@@ -33,7 +33,7 @@ enum ALLVType {
     case Progress
 }
 
-enum ALLVWindowMode {
+public enum ALLVWindowMode {
     case Fullscreen
     case Windowed
 }
@@ -55,7 +55,7 @@ private enum ALLVViewType {
     case ActivityIndicator
 }
 
-class ALLoadingView: NSObject {
+public class ALLoadingView: NSObject {
     //MARK: - Public variables
     var animationDuration: NSTimeInterval = 1.5
     var cornerRadius: CGFloat = 0.0
