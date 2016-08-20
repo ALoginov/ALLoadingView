@@ -22,8 +22,8 @@
 
 import UIKit
 
-typealias ALLVCompletionBlock = () -> Void
-typealias ALLVCancelBlock = () -> Void
+public typealias ALLVCompletionBlock = () -> Void
+public typealias ALLVCancelBlock = () -> Void
 
 public enum ALLVType {
     case Default
@@ -57,16 +57,16 @@ private enum ALLVViewType {
 
 public class ALLoadingView: NSObject {
     //MARK: - Public variables
-    var animationDuration: NSTimeInterval = 1.5
-    var cornerRadius: CGFloat = 0.0
-    var cancelCallback: ALLVCancelBlock?
-    var bluredBackground: Bool = false
-    lazy var backgroundColor: UIColor = UIColor(white: 0.0, alpha: 0.5)
-    lazy var textColor: UIColor = UIColor(white: 1.0, alpha: 1.0)
-    lazy var messageFont: UIFont = UIFont.systemFontOfSize(25.0)
-    lazy var messageText: String = "Loading"
+    public var animationDuration: NSTimeInterval = 1.5
+    public var cornerRadius: CGFloat = 0.0
+    public var cancelCallback: ALLVCancelBlock?
+    public var bluredBackground: Bool = false
+    public lazy var backgroundColor: UIColor = UIColor(white: 0.0, alpha: 0.5)
+    public lazy var textColor: UIColor = UIColor(white: 1.0, alpha: 1.0)
+    public lazy var messageFont: UIFont = UIFont.systemFontOfSize(25.0)
+    public lazy var messageText: String = "Loading"
     //MARK: Adjusment
-    var windowRatio: CGFloat = 0.4 {
+    public var windowRatio: CGFloat = 0.4 {
         didSet {
             windowRatio = min(max(0.3, windowRatio), 1.0)
         }
@@ -104,14 +104,14 @@ public class ALLoadingView: NSObject {
     }
     
     //MARK: - Initialization
-    class var manager: ALLoadingView {
+    public class var manager: ALLoadingView {
         struct Singleton {
             static let instance = ALLoadingView()
         }
         return Singleton.instance
     }
     
-    override init() {
+    override public init() {
         loadingViewWindowMode = .Fullscreen
         loadingViewProgress = .Hidden
         loadingViewType = .Default
@@ -119,11 +119,11 @@ public class ALLoadingView: NSObject {
     
     //MARK: - Public methods
     //MARK: Show loading view
-    func showLoadingViewOfType(type: ALLVType, completionBlock: ALLVCompletionBlock?) {
+    public func showLoadingViewOfType(type: ALLVType, completionBlock: ALLVCompletionBlock?) {
         showLoadingViewOfType(type, windowMode: .Fullscreen, completionBlock: completionBlock)
     }
     
-    func showLoadingViewOfType(type: ALLVType, windowMode: ALLVWindowMode, completionBlock: ALLVCompletionBlock? = nil) {
+    public func showLoadingViewOfType(type: ALLVType, windowMode: ALLVWindowMode, completionBlock: ALLVCompletionBlock? = nil) {
         assert(loadingViewProgress == .Hidden || loadingViewProgress == .Hiding, "ALLoadingView Presentation Error. Trying to push loading view while there is one already presented")
         
         loadingViewProgress = .Initializing
@@ -160,13 +160,13 @@ public class ALLoadingView: NSObject {
     }
     
     //MARK: Hide loading view
-    func hideLoadingView(completionBlock: ALLVCompletionBlock? = nil) {
+    public func hideLoadingView(completionBlock: ALLVCompletionBlock? = nil) {
         hideLoadingViewWithDelay(0.0) { () -> Void in
             completionBlock?()
         }
     }
     
-    func hideLoadingViewWithDelay(delay: NSTimeInterval, completionBlock: ALLVCompletionBlock? = nil) {
+    public func hideLoadingViewWithDelay(delay: NSTimeInterval, completionBlock: ALLVCompletionBlock? = nil) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
             self.loadingViewProgress = .Hiding
             self.animateLoadingViewDisappearanceWithCompletionBlock(completionBlock)
@@ -202,7 +202,7 @@ public class ALLoadingView: NSObject {
     }
     
     //MARK: Reset to defaults
-    func resetToDefaults() {
+    public func resetToDefaults() {
         self.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
         self.textColor = UIColor(white: 1.0, alpha: 1.0)
         self.messageFont = UIFont.systemFontOfSize(25.0)
@@ -217,7 +217,7 @@ public class ALLoadingView: NSObject {
     }
     
     //MARK: Updating subviews data
-    func updateProgressLoadingViewWithMessage(message: String, forProgress progress: Float) {
+    public func updateProgressLoadingViewWithMessage(message: String, forProgress progress: Float) {
         guard self.loadingViewProgress == .Loaded else {
             return
         }
@@ -226,7 +226,7 @@ public class ALLoadingView: NSObject {
         performSelectorOnMainThread(#selector(ALLoadingView.progress_updateProgressControlsWithData(_:)), withObject: ["message": message, "progress" : progress], waitUntilDone: true)
     }
     
-    func progress_updateProgressControlsWithData(data: NSDictionary) {
+    public func progress_updateProgressControlsWithData(data: NSDictionary) {
         let message = data["message"] as? String ?? ""
         let progress = data["progress"] as? Float ?? 0.0
         
@@ -240,7 +240,7 @@ public class ALLoadingView: NSObject {
         }
     }
     
-    func updateMessageLabelWithText(message: String) {
+    public func updateMessageLabelWithText(message: String) {
         assert(loadingViewType == .Message ||
                loadingViewType == .MessageWithIndicator ||
                loadingViewType == .MessageWithIndicatorAndCancelButton, "ALLoadingView Update Error. Set .Message, .MessageWithIndicator and .MessageWithIndicatorAndCancelButton type to access message label.")
@@ -288,7 +288,7 @@ public class ALLoadingView: NSObject {
     
     //MARK: - Private methods
     //MARK: Initialize view
-    func initializeLoadingView() {
+    public func initializeLoadingView() {
         if isUsingBlurEffect {
             let lightBlur = UIBlurEffect(style: .Dark)
             let lightBlurView = UIVisualEffectView(effect: lightBlur)
@@ -420,7 +420,7 @@ public class ALLoadingView: NSObject {
     }
     
     //MARK: Subviews actions
-    func cancelButtonTapped(sender: AnyObject?) {
+    public func cancelButtonTapped(sender: AnyObject?) {
         if let _ = sender as? UIButton {
             cancelCallback?()
         }
