@@ -231,7 +231,7 @@ open class ALLoadingView: NSObject {
         let progress = data["progress"] as? Float ?? 0.0
         
         for view in self.loadingViewSubviews() {
-            if view.responds(to: #selector(setter: UITableViewCell.text)) {
+            if view.responds(to: #selector(setter: UITableViewCell().textLabel?.text)) {
                 (view as! UILabel).text = message
             }
             if view.responds(to: #selector(setter: UIProgressView.progress)) {
@@ -254,7 +254,7 @@ open class ALLoadingView: NSObject {
         switch self.loadingViewType {
         case .message, .messageWithIndicator:
             for view in subviews {
-                if view.responds(to: #selector(setter: UITableViewCell.text)) {
+                if view.responds(to: #selector(setter: UITableViewCell().textLabel?.text)) {
                     (view as! UILabel).text = self.messageText
                 }
             }
@@ -265,7 +265,7 @@ open class ALLoadingView: NSObject {
                     (view as! UIButton).setTitle("Cancel", for: UIControlState())
                     (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
                 }
-                if view.responds(to: #selector(setter: UITableViewCell.text)) {
+                if view.responds(to: #selector(setter: UITableViewCell().textLabel?.text)) {
                     (view as! UILabel).text = self.messageText
                 }
             }
@@ -276,7 +276,7 @@ open class ALLoadingView: NSObject {
                     (view as! UIProgressView).progress = 0.0
                     
                 }
-                if view.responds(to: #selector(setter: UITableViewCell.text)) {
+                if view.responds(to: #selector(setter: UITableViewCell().textLabel?.text)) {
                     (view as! UILabel).text = self.messageText
                 }
             }
@@ -408,8 +408,8 @@ open class ALLoadingView: NSObject {
     fileprivate func view_cancelButton(_ frame: CGRect) -> UIButton {
         let button = UIButton(type: .custom)
         button.frame = frame
-        button.setTitleColor(.white(), for: UIControlState())
-        button.backgroundColor = .clear()
+        button.setTitleColor(UIColor.white, for: UIControlState())
+        button.backgroundColor = UIColor(white:1, alpha: 0)
         return button
     }
     
