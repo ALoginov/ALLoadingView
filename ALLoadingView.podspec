@@ -10,7 +10,6 @@ s.license          = { :type => 'MIT', :file => 'LICENSE' }
 s.author           = { 'ALoginov' => 'artemloginov@dilarc.com' }
 s.source           = { :git => 'https://github.com/ALoginov/ALLoadingView.git', :tag => s.version.to_s }
 s.source_files = 'ALLoadingView/Source/*.swift'
-s.ios.source_files   = 'ALLoadingView/Source/*.swift'
 s.requires_arc = true
 
 s.ios.deployment_target = '9.0'
