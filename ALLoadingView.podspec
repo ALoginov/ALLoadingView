@@ -13,5 +13,5 @@ s.requires_arc = true
 
 s.ios.deployment_target = '9.0'
 
-s.source_files = "ALLoadingView/Source/*.{swift}"
+s.source_files = "ALLoadingView/Source/ALLoadingView.swift"
 end
