@@ -1,26 +1,117 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Dpv-i3-nh4">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="1yz-dK-skK">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Dpv-i3-nh4" customClass="ViewController" customModule="ALLoadingView_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="JVx-TD-DSU"/>
+                        <viewControllerLayoutGuide type="bottom" id="uCj-CS-nNj"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="ISE-Dp-vRC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="thu-1t-ZYk">
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Wsh-JP-XvC"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Simple screen with activity indicator">
+                                            <attributes>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="action_testCaseOne:" destination="Dpv-i3-nh4" eventType="touchUpInside" id="2Ej-1c-3tw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ovk-SA-khG">
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="uM7-cz-snH"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Blurred screen with activity indicator and message">
+                                            <attributes>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="action_testCaseTwo:" destination="Dpv-i3-nh4" eventType="touchUpInside" id="0HW-lf-Cg5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rte-e6-MMv">
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Yyu-Ku-j9e"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Blurred screen with indicator, message and cancel button">
+                                            <attributes>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="action_testCaseThree:" destination="Dpv-i3-nh4" eventType="touchUpInside" id="TU4-9a-Jcy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Etp-Wo-ckh">
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="9rD-10-5eV"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Loading screen with progress bar and message label">
+                                            <attributes>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="action_testCaseFour:" destination="Dpv-i3-nh4" eventType="touchUpInside" id="l8K-OU-Pw0"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="thu-1t-ZYk" secondAttribute="trailing" id="0SG-aR-s4J"/>
+                            <constraint firstItem="thu-1t-ZYk" firstAttribute="leading" secondItem="ISE-Dp-vRC" secondAttribute="leadingMargin" id="44z-wc-I6a"/>
+                            <constraint firstItem="ovk-SA-khG" firstAttribute="top" secondItem="thu-1t-ZYk" secondAttribute="bottom" constant="15" id="55k-co-YBZ"/>
+                            <constraint firstItem="Etp-Wo-ckh" firstAttribute="top" secondItem="rte-e6-MMv" secondAttribute="bottom" constant="15" id="6ti-fE-fdg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Etp-Wo-ckh" secondAttribute="trailing" id="DXz-Xn-rJY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rte-e6-MMv" secondAttribute="trailing" id="Ejs-Er-xKN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ovk-SA-khG" secondAttribute="trailing" id="IcU-oz-lZT"/>
+                            <constraint firstItem="Etp-Wo-ckh" firstAttribute="leading" secondItem="ISE-Dp-vRC" secondAttribute="leadingMargin" id="LvN-Wx-8TJ"/>
+                            <constraint firstItem="thu-1t-ZYk" firstAttribute="top" secondItem="JVx-TD-DSU" secondAttribute="bottom" constant="8" id="N5x-su-kwP"/>
+                            <constraint firstItem="rte-e6-MMv" firstAttribute="top" secondItem="ovk-SA-khG" secondAttribute="bottom" constant="15" id="fhw-Qa-eaY"/>
+                            <constraint firstItem="rte-e6-MMv" firstAttribute="leading" secondItem="ISE-Dp-vRC" secondAttribute="leadingMargin" id="imm-VD-BRp"/>
+                            <constraint firstItem="ovk-SA-khG" firstAttribute="leading" secondItem="ISE-Dp-vRC" secondAttribute="leadingMargin" id="vT0-rv-P3D"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GzE-1w-QNV" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="116" y="113"/>
         </scene>
     </scenes>
 </document>
