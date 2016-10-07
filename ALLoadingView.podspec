@@ -11,7 +11,7 @@ s.author           = { 'ALoginov' => 'artemloginov@dilarc.com' }
 s.source           = { :git => 'https://github.com/ALoginov/ALLoadingView.git', :tag => '1.0.1' }
 s.requires_arc = true
 
-s.ios.deployment_target = '10.0'
+s.ios.deployment_target = '9.0'
 
 s.source_files = "ALLoadingView/Source/*.{swift}"
 end
