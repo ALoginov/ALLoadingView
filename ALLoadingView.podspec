@@ -9,9 +9,9 @@ s.screenshots      = 'http://dl.dropboxusercontent.com/u/72091593/Screenshots%20
 s.license          = { :type => 'MIT', :file => 'LICENSE' }
 s.author           = { 'ALoginov' => 'artemloginov@dilarc.com' }
 s.source           = { :git => 'https://github.com/ALoginov/ALLoadingView.git', :tag => s.version.to_s }
+s.source_files = 'ALLoadingView/Source/*.swift'
 s.requires_arc = true
 
 s.ios.deployment_target = '9.0'
 
-s.source_files = "ALLoadingView/Source/ALLoadingView.swift"
 end
