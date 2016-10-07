@@ -40,7 +40,8 @@ pod "ALLoadingView"
 ```
 
 ## Usage
-> Following examples are working on version 1.0.0+
+> Following examples are working on version 1.0.0+.
+
 #### Simple loading view with activity indicator 
 ```swift
 ALLoadingView.manager.showLoadingView(ofType: .basic, windowMode: .windowed)
