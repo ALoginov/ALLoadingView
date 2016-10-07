@@ -10,7 +10,7 @@
 `ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress. Written in `Swift 3`
 
 ### Versions
-`1.0.1` supports Swift 3 version, `0.1.4` - Swift 2.2 
+`1.0.0+` supports Swift 3 version, `0.1.4` - Swift 2.2 
 
 [![ALLV Screenshot 1](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1.png)
 [![ALLV Screenshot 2](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2.png)
