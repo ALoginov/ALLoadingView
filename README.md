@@ -1,7 +1,7 @@
 # ALLoadingView
 
 [![Version](https://img.shields.io/cocoapods/v/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
-[![Min iOS Version](https://img.shields.io/badge/iOS%20version-9.0%2B-green.svg)]
+![Min iOS Version](https://img.shields.io/badge/iOS%20version-9.0%2B-green.svg)
 [![License](https://img.shields.io/cocoapods/l/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
 [![Platform](https://img.shields.io/cocoapods/p/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
 [![Language](https://img.shields.io/badge/Swift-3.0-orange.svg)](http://cocoapods.org/pods/ALLoadingView)
