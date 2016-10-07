@@ -25,38 +25,38 @@ import ALLoadingView
 
 class ViewController: UIViewController {
 
-    private var step = 0
-    private var updateTimer = NSTimer()
+    fileprivate var step = 0
+    fileprivate var updateTimer = Timer()
     
-    @IBAction func action_testCaseOne(sender: AnyObject) {
+    @IBAction func action_testCaseOne(_ sender: AnyObject) {
         ALLoadingView.manager.resetToDefaults()
-        ALLoadingView.manager.showLoadingViewOfType(.Default, windowMode: .Windowed, completionBlock: nil)
+        ALLoadingView.manager.showLoadingViewOfType(.default, windowMode: .windowed, completionBlock: nil)
         ALLoadingView.manager.hideLoadingViewWithDelay(2.0)
     }
     
-    @IBAction func action_testCaseTwo(sender: AnyObject) {
+    @IBAction func action_testCaseTwo(_ sender: AnyObject) {
         ALLoadingView.manager.resetToDefaults()
         ALLoadingView.manager.bluredBackground = true
-        ALLoadingView.manager.showLoadingViewOfType(.MessageWithIndicator, windowMode: .Fullscreen, completionBlock: nil)
+        ALLoadingView.manager.showLoadingViewOfType(.messageWithIndicator, windowMode: .fullscreen, completionBlock: nil)
         ALLoadingView.manager.hideLoadingViewWithDelay(2.0)
     }
     
-    @IBAction func action_testCaseThree(sender: AnyObject) {
+    @IBAction func action_testCaseThree(_ sender: AnyObject) {
         ALLoadingView.manager.resetToDefaults()
         ALLoadingView.manager.bluredBackground = true
-        ALLoadingView.manager.showLoadingViewOfType(.MessageWithIndicatorAndCancelButton, windowMode: .Fullscreen, completionBlock: nil)
+        ALLoadingView.manager.showLoadingViewOfType(.messageWithIndicatorAndCancelButton, windowMode: .fullscreen, completionBlock: nil)
         ALLoadingView.manager.cancelCallback = {
             ALLoadingView.manager.hideLoadingView()
         }
     }
     
-    @IBAction func action_testCaseFour(sender: AnyObject) {
+    @IBAction func action_testCaseFour(_ sender: AnyObject) {
         ALLoadingView.manager.resetToDefaults()
-        ALLoadingView.manager.showLoadingViewOfType(.Progress) {
+        ALLoadingView.manager.showLoadingViewOfType(.progress) {
             (finished) -> Void in
             ALLoadingView.manager.updateProgressLoadingViewWithMessage("Initializing", forProgress: 0.05)
             self.step = 1
-            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ViewController.updateProgress), userInfo: nil, repeats: true)
+            self.updateTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(ViewController.updateProgress), userInfo: nil, repeats: true)
         }
     }
     
