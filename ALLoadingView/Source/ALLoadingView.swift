@@ -78,6 +78,7 @@ public class ALLoadingView: NSObject {
     private var loadingViewType: ALLVType
     private var loadingView: UIView = UIView()
     private var operationQueue = OperationQueue()
+    private var stackView: UIStackView = UIStackView()
     
     //MARK: Custom setters/getters
     private var loadingViewWindowMode: ALLVWindowMode {
@@ -138,7 +139,7 @@ public class ALLoadingView: NSObject {
         
         let operationShow = BlockOperation { () -> Void in
             DispatchQueue.main.async {
-                UIApplication.shared.windows[0].addSubview(self.loadingView)
+                self.attachLoadingViewToContainer()
                 self.updateSubviewsTitles()
                 self.animateLoadingViewAppearance(withCompletion: completionBlock)
             }
@@ -296,7 +297,8 @@ public class ALLoadingView: NSObject {
             loadingView = lightBlurView
             loadingView.frame = frameForView
         } else {
-            loadingView = UIView(frame: frameForView)
+//            loadingView = UIView(frame: frameForView)
+            loadingView = UIView(frame: CGRect.zero)
             loadingView.backgroundColor = backgroundColor
         }
         loadingView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
@@ -304,6 +306,52 @@ public class ALLoadingView: NSObject {
         
         // View has been created. Add subviews according to selected type.
         createSubviewsForLoadingView()
+    }
+    
+    private func attachLoadingViewToContainer() {
+        let container = UIApplication.shared.windows[0]
+        container.addSubview(loadingView)
+        
+        if loadingViewWindowMode == .fullscreen {
+            view_setWholeScreenConstraints(container)
+        } else {
+            view_setSizeConstraints(container)
+        }
+    }
+
+    private func view_setWholeScreenConstraints(_ container: UIView) {
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        let topConstraint = NSLayoutConstraint(item: loadingView, attribute: .top,
+                                               relatedBy: .equal, toItem: container,
+                                               attribute: .top, multiplier: 1, constant: 0)
+        let bottomContraint = NSLayoutConstraint(item: loadingView, attribute: .bottom,
+                                                 relatedBy: .equal, toItem: container,
+                                                 attribute: .bottom, multiplier: 1, constant: 0)
+        let trallingConstaint = NSLayoutConstraint(item: loadingView, attribute: .trailing,
+                                                   relatedBy: .equal, toItem: container,
+                                                   attribute: .trailing, multiplier: 1, constant: 0)
+        let leadingConstraint = NSLayoutConstraint(item: loadingView, attribute: .leading,
+                                                   relatedBy: .equal, toItem: container,
+                                                   attribute: .leading, multiplier: 1, constant: 0)
+        container.addConstraints([topConstraint, bottomContraint, leadingConstraint, trallingConstaint])
+    }
+    
+    private func view_setSizeConstraints(_ container: UIView) {
+        let frame = frameForView
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        let heightConstraint = NSLayoutConstraint(item: loadingView, attribute: .height,
+                                               relatedBy: .equal, toItem: nil,
+                                               attribute: .notAnAttribute, multiplier: 1, constant: frame.size.height)
+        let widthContraint = NSLayoutConstraint(item: loadingView, attribute: .width,
+                                                 relatedBy: .equal, toItem: nil,
+                                                 attribute: .notAnAttribute, multiplier: 1, constant: frame.size.width)
+        let centerXConstaint = NSLayoutConstraint(item: loadingView, attribute: .centerX,
+                                                   relatedBy: .equal, toItem: container,
+                                                   attribute: .centerX, multiplier: 1, constant: 0)
+        let centerYConstraint = NSLayoutConstraint(item: loadingView, attribute: .centerY,
+                                                   relatedBy: .equal, toItem: container,
+                                                   attribute: .centerY, multiplier: 1, constant: 0)
+        container.addConstraints([heightConstraint, widthContraint, centerYConstraint, centerXConstaint])
     }
     
     private func createSubviewsForLoadingView() {
