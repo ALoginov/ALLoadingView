@@ -58,6 +58,7 @@ private enum ALLVViewType {
 public class ALLoadingView: NSObject {
     //MARK: - Public variables
     public var animationDuration: TimeInterval = 0.5
+    public var itemSpacing: CGFloat = 20.0
     public var cornerRadius: CGFloat = 0.0
     public var cancelCallback: ALLVCancelBlock?
     public var blurredBackground: Bool = false
@@ -76,9 +77,12 @@ public class ALLoadingView: NSObject {
     //MARK: - Private variables
     private var loadingViewProgress: ALLVProgress
     private var loadingViewType: ALLVType
-    private var loadingView: UIView = UIView()
     private var operationQueue = OperationQueue()
-    private var stackView: UIStackView = UIStackView()
+    private var blankIntrinsicContentSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
+    // Subviews
+    private var loadingView: UIView?
+    private var appearanceView: UIView?
+    private var stackView: UIStackView?
     
     //MARK: Custom setters/getters
     private var loadingViewWindowMode: ALLVWindowMode {
@@ -131,7 +135,7 @@ public class ALLoadingView: NSObject {
         loadingViewWindowMode = windowMode ?? .fullscreen
         loadingViewType = type
         
-        let operationInit = BlockOperation { () -> Void in
+        let operationInit = BlockOperation { ()  -> Void in
             DispatchQueue.main.async {
                 self.initializeLoadingView()
             }
@@ -174,16 +178,16 @@ public class ALLoadingView: NSObject {
     private func animateLoadingViewDisappearance(withCompletion completionBlock: ALLVCompletionBlock? = nil) {
         if isUsingBlurEffect {
             self.loadingViewProgress = .hidden
-            self.loadingView.removeFromSuperview()
+            self.loadingView?.removeFromSuperview()
             completionBlock?()
             self.freeViewData()
         } else {
             UIView.animate(withDuration: self.animationDuration, animations: { () -> Void in
-                self.loadingView.alpha = 0.0
+                self.appearanceView?.alpha = 0.0
             }) { finished -> Void in
                 if finished {
                     self.loadingViewProgress = .hidden
-                    self.loadingView.removeFromSuperview()
+                    self.loadingView?.removeFromSuperview()
                     completionBlock?()
                     self.freeViewData()
                 }
@@ -196,7 +200,11 @@ public class ALLoadingView: NSObject {
         for subview in loadingViewSubviews() {
             subview.removeFromSuperview()
         }
-        self.loadingView = UIView(frame: CGRect.zero);
+        self.stackView?.removeFromSuperview()
+        self.appearanceView?.removeFromSuperview()
+        self.stackView = nil
+        self.appearanceView = nil
+        self.loadingView = nil
     }
     
     //MARK: Reset to defaults
@@ -209,6 +217,7 @@ public class ALLoadingView: NSObject {
         self.messageText = "Loading"
         self.cornerRadius = 0.0
         self.windowRatio = 0.4
+        self.itemSpacing = 20.0
         //
         self.loadingViewWindowMode = .fullscreen
         self.loadingViewType = .basic
@@ -223,6 +232,8 @@ public class ALLoadingView: NSObject {
         
         DispatchQueue.main.async {
             self.progress_updateProgressControls(withData: ["message": message, "progress" : progress])
+            // Update stack view's height
+            self.updateStackViewHeightConstraint()
         }
     }
     
@@ -247,6 +258,8 @@ public class ALLoadingView: NSObject {
         
         DispatchQueue.main.async {
             self.progress_updateProgressControls(withData: ["message": message])
+            // Update stack view's height
+            self.updateStackViewHeightConstraint()
         }
     }
     
@@ -286,89 +299,159 @@ public class ALLoadingView: NSObject {
         default:
             break
         }
+        
+        // Update stack view's height
+        updateStackViewHeightConstraint()
     }
     
     //MARK: - Private methods
     //MARK: Initialize view
     private func initializeLoadingView() {
+        loadingView = UIView(frame: CGRect.zero)
+        loadingView?.backgroundColor = UIColor.clear
+        loadingView?.clipsToBounds = true
+        
+        // Create blank stack view, will configure later
+        stackView = UIStackView()
+        
+        // Set up appearance view (blur, color, such stuff)
+        initializeAppearanceView()
+    
+        // View has been created. Add subviews according to selected type.
+        configureStackView()
+        createSubviewsForStackView()
+    }
+    
+    private func initializeAppearanceView() {
+        guard let loadingView = loadingView, let stackView = stackView else {
+            return
+        }
+        
         if isUsingBlurEffect {
             let lightBlur = UIBlurEffect(style: .dark)
             let lightBlurView = UIVisualEffectView(effect: lightBlur)
-            loadingView = lightBlurView
-            loadingView.frame = frameForView
+            appearanceView = lightBlurView
+            
+            // Add stack view
+            lightBlurView.contentView.addSubview(stackView)
         } else {
-//            loadingView = UIView(frame: frameForView)
-            loadingView = UIView(frame: CGRect.zero)
-            loadingView.backgroundColor = backgroundColor
+            appearanceView = UIView(frame: CGRect.zero)
+            appearanceView?.backgroundColor = backgroundColor
+            
+            // Add stack view
+            appearanceView?.addSubview(stackView)
         }
-        loadingView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
-        loadingView.layer.cornerRadius = cornerRadius
+        appearanceView?.layer.cornerRadius = cornerRadius
+        appearanceView?.layer.masksToBounds = true
         
-        // View has been created. Add subviews according to selected type.
-        createSubviewsForLoadingView()
+        loadingView.addSubview(appearanceView!)
+    }
+    
+    private func configureStackView() {
+        guard let stackView = stackView else {
+            return
+        }
+        
+        stackView.axis = .vertical
+        stackView.distribution = .equalCentering
+        stackView.alignment = .center
+        stackView.spacing = itemSpacing
     }
     
     private func attachLoadingViewToContainer() {
+        guard let loadingView = loadingView, let appearanceView = appearanceView else {
+            return
+        }
+        
         let container = UIApplication.shared.windows[0]
         container.addSubview(loadingView)
         
+        // Set constraints for loading view (container)
+        view_setWholeScreenConstraints(forView: loadingView, inContainer: container)
+        
+        // Set constraints for appearance view
         if loadingViewWindowMode == .fullscreen {
-            view_setWholeScreenConstraints(container)
+            view_setWholeScreenConstraints(forView: appearanceView, inContainer: loadingView)
         } else {
-            view_setSizeConstraints(container)
+            view_setSizeConstraints(forView: appearanceView, inContainer: loadingView)
         }
     }
 
-    private func view_setWholeScreenConstraints(_ container: UIView) {
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = NSLayoutConstraint(item: loadingView, attribute: .top,
+    private func view_setWholeScreenConstraints(forView subview: UIView, inContainer container: UIView) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        let topConstraint = NSLayoutConstraint(item: subview, attribute: .top,
                                                relatedBy: .equal, toItem: container,
                                                attribute: .top, multiplier: 1, constant: 0)
-        let bottomContraint = NSLayoutConstraint(item: loadingView, attribute: .bottom,
+        let bottomContraint = NSLayoutConstraint(item: subview, attribute: .bottom,
                                                  relatedBy: .equal, toItem: container,
                                                  attribute: .bottom, multiplier: 1, constant: 0)
-        let trallingConstaint = NSLayoutConstraint(item: loadingView, attribute: .trailing,
+        let trallingConstaint = NSLayoutConstraint(item: subview, attribute: .trailing,
                                                    relatedBy: .equal, toItem: container,
                                                    attribute: .trailing, multiplier: 1, constant: 0)
-        let leadingConstraint = NSLayoutConstraint(item: loadingView, attribute: .leading,
+        let leadingConstraint = NSLayoutConstraint(item: subview, attribute: .leading,
                                                    relatedBy: .equal, toItem: container,
                                                    attribute: .leading, multiplier: 1, constant: 0)
         container.addConstraints([topConstraint, bottomContraint, leadingConstraint, trallingConstaint])
     }
     
-    private func view_setSizeConstraints(_ container: UIView) {
+    private func view_setSizeConstraints(forView subview: UIView, inContainer container: UIView) {
         let frame = frameForView
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        let heightConstraint = NSLayoutConstraint(item: loadingView, attribute: .height,
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        let heightConstraint = NSLayoutConstraint(item: subview, attribute: .height,
                                                relatedBy: .equal, toItem: nil,
                                                attribute: .notAnAttribute, multiplier: 1, constant: frame.size.height)
-        let widthContraint = NSLayoutConstraint(item: loadingView, attribute: .width,
+        let widthContraint = NSLayoutConstraint(item: subview, attribute: .width,
                                                  relatedBy: .equal, toItem: nil,
                                                  attribute: .notAnAttribute, multiplier: 1, constant: frame.size.width)
-        let centerXConstaint = NSLayoutConstraint(item: loadingView, attribute: .centerX,
+        let centerXConstaint = NSLayoutConstraint(item: subview, attribute: .centerX,
                                                    relatedBy: .equal, toItem: container,
                                                    attribute: .centerX, multiplier: 1, constant: 0)
-        let centerYConstraint = NSLayoutConstraint(item: loadingView, attribute: .centerY,
+        let centerYConstraint = NSLayoutConstraint(item: subview, attribute: .centerY,
                                                    relatedBy: .equal, toItem: container,
                                                    attribute: .centerY, multiplier: 1, constant: 0)
         container.addConstraints([heightConstraint, widthContraint, centerYConstraint, centerXConstaint])
     }
     
-    private func createSubviewsForLoadingView() {
+    private func createSubviewsForStackView() {
+        guard let stackView = stackView else {
+            return
+        }
         let viewTypes = getSubviewsTypes()
         
         // calculate frame for each view
-        let viewsCount: Int = viewTypes.count
-        let elementHeight: CGFloat = frameForView.height / CGFloat(viewsCount)
-        
-        for (index, type) in viewTypes.enumerated() {
-            let frame: CGRect = CGRect(x: 0, y: elementHeight * CGFloat(index), width: frameForView.width, height: elementHeight)
-            let view = initializeView(withType: type, andFrame: frame)
+        for viewType in viewTypes {
+            let view = initializeView(withType: viewType, andFrame: CGRect(origin: CGPoint.zero, size: CGSize(width: 50.0, height: 50.0)))
             
-            addSubviewToLoadingView(view)
+            stackView.addArrangedSubview(view)
+            if view.intrinsicContentSize.height == UIViewNoIntrinsicMetric {
+                view.translatesAutoresizingMaskIntoConstraints = false
+                view.heightAnchor.constraint(equalToConstant: view.frame.height).isActive = true
+            }
+            if view.intrinsicContentSize.width == UIViewNoIntrinsicMetric {
+                view.translatesAutoresizingMaskIntoConstraints = false
+                view.widthAnchor.constraint(equalToConstant: frameForView.width).isActive = true
+            }
         }
         
         self.loadingViewProgress = .viewReady
+        
+        // Setting up constraints for stack view
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.widthAnchor.constraint(equalTo: (stackView.superview?.widthAnchor)!, multiplier: 1).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: (stackView.superview?.centerXAnchor)!).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: (stackView.superview?.centerYAnchor)!).isActive = true
+    }
+    
+    private func updateStackViewHeightConstraint() {
+        guard let stackView = stackView else {
+            return
+        }
+        
+        var summaryElementHeight : CGFloat = 0.0
+        stackView.arrangedSubviews.forEach { summaryElementHeight += $0.elementHeightAtStackView() }
+        summaryElementHeight += CGFloat(stackView.arrangedSubviews.count - 1) * stackView.spacing
+
+        stackView.heightAnchor.constraint(equalToConstant: summaryElementHeight).isActive = true
     }
     
     private func getSubviewsTypes() -> [ALLVViewType] {
@@ -383,43 +466,28 @@ public class ALLoadingView: NSObject {
             if self.loadingViewWindowMode == ALLVWindowMode.windowed {
                 return [.messageLabel, .activityIndicator, .cancelButton]
             } else {
-                return [.blankSpace, .blankSpace, .messageLabel, .activityIndicator, .blankSpace, .cancelButton]
+                return [.messageLabel, .activityIndicator, .cancelButton]
             }
         case .progress:
-            return [.messageLabel, .blankSpace, .progressBar]
+            return [.messageLabel, .progressBar]
         }
     }
     
     //MARK: Loading view accessors & methods
-    private func addSubviewToLoadingView(_ subview: UIView) {
-        if isUsingBlurEffect {
-            // Add subview to content view of UIVisualEffectView
-            if let asVisualEffectView = loadingView as? UIVisualEffectView {
-                asVisualEffectView.contentView.addSubview(subview)
-                asVisualEffectView.contentView.bringSubview(toFront: subview)
-            }
-        } else {
-            loadingView.addSubview(subview)
-            loadingView.bringSubview(toFront: subview)
-        }
-    }
-    
     private func loadingViewSubviews() -> [UIView] {
-        if isUsingBlurEffect {
-            if let asVisualEffectView = loadingView as? UIVisualEffectView {
-                return asVisualEffectView.contentView.subviews
-            }
+        guard let stackView = stackView else {
+            return []
         }
-        return loadingView.subviews
+        return stackView.arrangedSubviews
     }
     
     private func updateContentViewAlphaValue(_ alpha: CGFloat) {
         if isUsingBlurEffect {
-            if let asVisualEffectView = loadingView as? UIVisualEffectView {
+            if let asVisualEffectView = appearanceView as? UIVisualEffectView {
                 asVisualEffectView.contentView.alpha = alpha
             }
         } else {
-            loadingView.alpha = alpha
+            appearanceView?.alpha = alpha
         }
     }
     
@@ -427,27 +495,26 @@ public class ALLoadingView: NSObject {
     private func initializeView(withType type: ALLVViewType, andFrame frame: CGRect) -> UIView {
         switch type {
         case .messageLabel:
-            return view_messageLabel(frame)
+            return view_messageLabel()
         case .activityIndicator:
-            return view_activityIndicator(frame)
+            return view_activityIndicator()
         case .cancelButton:
             return view_cancelButton(frame)
         case .blankSpace:
             return UIView(frame: frame)
         case .progressBar:
-            return view_standardProgressBar(frame)
+            return view_standardProgressBar()
         }
     }
     
-    private func view_activityIndicator(_ frame: CGRect) -> UIActivityIndicatorView {
+    private func view_activityIndicator() -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
-        activityIndicator.center = CGPoint(x: frame.midX, y: frame.midY)
         activityIndicator.startAnimating()
         return activityIndicator
     }
     
-    private func view_messageLabel(_ frame: CGRect) -> UILabel {
-        let label = UILabel(frame: frame)
+    private func view_messageLabel() -> UILabel {
+        let label = UILabel(frame: CGRect.zero)
         label.textAlignment = .center
         label.textColor = textColor
         label.font = messageFont
@@ -462,9 +529,10 @@ public class ALLoadingView: NSObject {
         return button
     }
     
-    private func view_standardProgressBar(_ frame: CGRect) -> UIProgressView {
+    private func view_standardProgressBar() -> UIProgressView {
         let progressView = UIProgressView(progressViewStyle: .default)
-        progressView.frame = frame
+        progressView.progress = 0.0
+        
         return progressView
     }
     
@@ -473,5 +541,14 @@ public class ALLoadingView: NSObject {
         if let _ = sender as? UIButton {
             cancelCallback?()
         }
+    }
+}
+
+extension UIView {
+    func elementHeightAtStackView() -> CGFloat {
+        if self.intrinsicContentSize.height > 0 {
+            return self.intrinsicContentSize.height
+        }
+        return self.frame.height
     }
 }
