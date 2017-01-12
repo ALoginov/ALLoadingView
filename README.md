@@ -9,6 +9,11 @@
 ### Description
 `ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress. Written in `Swift 3`
 
+### Latest release [1.1.0]
+- UIStackView is used for positioning subviews
+- `itemSpacing` property introduced to edit spacing of elements in stack view
+- For more information, see [Changelog](https://github.com/ALoginov/ALLoadingView/blob/master/CHANGELOG.md)
+
 ### Versions
 `1.0.0+` supports Swift 3 version, `0.1.4` - Swift 2.2 
 

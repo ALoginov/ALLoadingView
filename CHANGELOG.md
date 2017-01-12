@@ -1,4 +1,4 @@
-## [1.1] 
+## [1.1.0](https://github.com/ALoginov/ALLoadingView/releases/tag/v1.1.0)
 Released on 12/01/2017
 
 #### Added
