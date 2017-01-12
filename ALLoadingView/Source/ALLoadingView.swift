@@ -49,7 +49,7 @@ private enum ALLVProgress {
 // building blocks
 private enum ALLVViewType {
     case blankSpace
-    case messageLabel
+    case messagTextView
     case progressBar
     case cancelButton
     case activityIndicator
@@ -130,7 +130,7 @@ public class ALLoadingView: NSObject {
     //MARK: Show loading view
     public func showLoadingView(ofType type: ALLVType, windowMode: ALLVWindowMode? = nil, completionBlock: ALLVCompletionBlock? = nil) {
         assert(loadingViewProgress == .hidden || loadingViewProgress == .hiding, "ALLoadingView Presentation Error. Trying to push loading view while there is one already presented")
-        
+
         loadingViewProgress = .initializing
         loadingViewWindowMode = windowMode ?? .fullscreen
         loadingViewType = type
@@ -232,8 +232,6 @@ public class ALLoadingView: NSObject {
         
         DispatchQueue.main.async {
             self.progress_updateProgressControls(withData: ["message": message, "progress" : progress])
-            // Update stack view's height
-            self.updateStackViewHeightConstraint()
         }
     }
     
@@ -242,13 +240,16 @@ public class ALLoadingView: NSObject {
         let progress = data["progress"] as? Float ?? 0.0
         
         for view in self.loadingViewSubviews() {
-            if view.responds(to: #selector(setter: UILabel.text)) {
-                (view as! UILabel).text = message
+            if let textView = view as? UITextView, textView.responds(to: #selector(setter: UITextView.text)) {
+                // Update text
+                textView.text = message
             }
             if view.responds(to: #selector(setter: UIProgressView.progress)) {
                 (view as! UIProgressView).progress = progress
             }
         }
+        
+        checkContentSize()
     }
     
     public func updateMessageLabel(withText message: String) {
@@ -258,8 +259,6 @@ public class ALLoadingView: NSObject {
         
         DispatchQueue.main.async {
             self.progress_updateProgressControls(withData: ["message": message])
-            // Update stack view's height
-            self.updateStackViewHeightConstraint()
         }
     }
     
@@ -268,40 +267,24 @@ public class ALLoadingView: NSObject {
         
         switch self.loadingViewType {
         case .message, .messageWithIndicator:
-            for view in subviews {
-                if view.responds(to: #selector(setter: UILabel.text)) {
-                    (view as! UILabel).text = self.messageText
-                }
-            }
+            updateMessageLabel(withText: messageText)
             break
         case .messageWithIndicatorAndCancelButton:
+            updateMessageLabel(withText: messageText)
+            
             for view in subviews {
                 if view is UIButton {
                     (view as! UIButton).setTitle("Cancel", for: UIControlState())
                     (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
                 }
-                if view.responds(to: #selector(setter: UILabel.text)) {
-                    (view as! UILabel).text = self.messageText
-                }
             }
             break
         case .progress:
-            for view in subviews {
-                if view.responds(to: #selector(setter: UIProgressView.progress)) {
-                    (view as! UIProgressView).progress = 0.0
-                    
-                }
-                if view.responds(to: #selector(setter: UILabel.text)) {
-                    (view as! UILabel).text = self.messageText
-                }
-            }
+            updateProgressLoadingView(withMessage: messageText, forProgress: 0.0)
             break
         default:
             break
         }
-        
-        // Update stack view's height
-        updateStackViewHeightConstraint()
     }
     
     //MARK: - Private methods
@@ -423,10 +406,7 @@ public class ALLoadingView: NSObject {
             let view = initializeView(withType: viewType, andFrame: CGRect(origin: CGPoint.zero, size: CGSize(width: 50.0, height: 50.0)))
             
             stackView.addArrangedSubview(view)
-            if view.intrinsicContentSize.height == UIViewNoIntrinsicMetric {
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.heightAnchor.constraint(equalToConstant: view.frame.height).isActive = true
-            }
+
             if view.intrinsicContentSize.width == UIViewNoIntrinsicMetric {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.widthAnchor.constraint(equalToConstant: frameForView.width).isActive = true
@@ -440,18 +420,7 @@ public class ALLoadingView: NSObject {
         stackView.widthAnchor.constraint(equalTo: (stackView.superview?.widthAnchor)!, multiplier: 1).isActive = true
         stackView.centerXAnchor.constraint(equalTo: (stackView.superview?.centerXAnchor)!).isActive = true
         stackView.centerYAnchor.constraint(equalTo: (stackView.superview?.centerYAnchor)!).isActive = true
-    }
-    
-    private func updateStackViewHeightConstraint() {
-        guard let stackView = stackView else {
-            return
-        }
-        
-        var summaryElementHeight : CGFloat = 0.0
-        stackView.arrangedSubviews.forEach { summaryElementHeight += $0.elementHeightAtStackView() }
-        summaryElementHeight += CGFloat(stackView.arrangedSubviews.count - 1) * stackView.spacing
-
-        stackView.heightAnchor.constraint(equalToConstant: summaryElementHeight).isActive = true
+        stackView.heightAnchor.constraint(lessThanOrEqualTo: (stackView.superview?.heightAnchor)!, constant: 0.0).isActive = true
     }
     
     private func getSubviewsTypes() -> [ALLVViewType] {
@@ -459,18 +428,38 @@ public class ALLoadingView: NSObject {
         case .basic:
             return [.activityIndicator]
         case .message:
-            return [.messageLabel]
+            return [.messagTextView]
         case .messageWithIndicator:
-            return [.messageLabel, .activityIndicator]
+            return [.messagTextView, .activityIndicator]
         case .messageWithIndicatorAndCancelButton:
             if self.loadingViewWindowMode == ALLVWindowMode.windowed {
-                return [.messageLabel, .activityIndicator, .cancelButton]
+                return [.messagTextView, .activityIndicator, .cancelButton]
             } else {
-                return [.messageLabel, .activityIndicator, .cancelButton]
+                return [.messagTextView, .activityIndicator, .cancelButton]
             }
         case .progress:
-            return [.messageLabel, .progressBar]
+            return [.messagTextView, .progressBar]
         }
+    }
+    
+    //MARK: Content size checker
+    private func checkContentSize() {
+        guard let stackView = stackView else {
+            return
+        }
+        
+        var contentSizeHeight : CGFloat = 0
+        stackView.arrangedSubviews.forEach {
+            contentSizeHeight += $0.elementHeightAtStackView()
+        }
+        contentSizeHeight += CGFloat(stackView.arrangedSubviews.count - 1) * itemSpacing
+        
+        let stackViewSizeHeight = stackView.elementHeightAtStackView()
+        if stackViewSizeHeight == 0 {
+            return
+        }
+    
+        assert(stackViewSizeHeight >= contentSizeHeight, "ALLoadingView Presentation Error. Required content size is bigger than available space. Check item spacing property or label's content")
     }
     
     //MARK: Loading view accessors & methods
@@ -494,8 +483,8 @@ public class ALLoadingView: NSObject {
     //MARK: Initializing subviews
     private func initializeView(withType type: ALLVViewType, andFrame frame: CGRect) -> UIView {
         switch type {
-        case .messageLabel:
-            return view_messageLabel()
+        case .messagTextView:
+            return view_messageTextView()
         case .activityIndicator:
             return view_activityIndicator()
         case .cancelButton:
@@ -513,12 +502,17 @@ public class ALLoadingView: NSObject {
         return activityIndicator
     }
     
-    private func view_messageLabel() -> UILabel {
-        let label = UILabel(frame: CGRect.zero)
-        label.textAlignment = .center
-        label.textColor = textColor
-        label.font = messageFont
-        return label
+    private func view_messageTextView() -> UITextView {
+        let textView = UITextView(frame: CGRect.zero)
+        textView.backgroundColor = .clear
+        textView.textAlignment = .center
+        textView.textColor = textColor
+        textView.font = messageFont
+        textView.isSelectable = false
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        
+        return textView
     }
     
     private func view_cancelButton(_ frame: CGRect) -> UIButton {
@@ -546,6 +540,12 @@ public class ALLoadingView: NSObject {
 
 extension UIView {
     func elementHeightAtStackView() -> CGFloat {
+        if self.constraints.count > 0 {
+            if let heightConstraint = self.constraints.filter({ $0.firstAttribute == .height && $0.constant != 0
+            }).first {
+                return heightConstraint.constant
+            }
+        }
         if self.intrinsicContentSize.height > 0 {
             return self.intrinsicContentSize.height
         }

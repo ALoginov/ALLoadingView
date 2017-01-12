@@ -1,3 +1,18 @@
+## [1.1] 
+Released on 12/01/2017
+
+#### Added
+- `itemSpacing` property is now responsible for spacing between items at UIStackView
+
+#### Updated
+- Autolayout mechanism is now in place replacing equal frames for subviews
+- Subviews are placed into UIStackView to control their positioning
+- Frame of subview (activity indicator, text view or button) is determined by its content size
+- UILabel subview was replaced with UITextView
+
+#### Fixed
+- Loading view layout updated on rotation. [iFreedive](https://github.com/iFreedive) [#0004](https://github.com/ALoginov/ALLoadingView/issues/4)
+
 ## [1.0.2](https://github.com/ALoginov/ALLoadingView/releases/tag/1.0.2)
 Released on 09/10/2016
 

@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+    
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,7 +40,9 @@ class ViewController: UIViewController {
     
     @IBAction func action_testCaseOne(_ sender: AnyObject) {
         ALLoadingView.manager.resetToDefaults()
-        ALLoadingView.manager.showLoadingView(ofType: .basic, windowMode: .windowed)
+        ALLoadingView.manager.blurredBackground = true
+        ALLoadingView.manager.windowRatio = 0.6
+        ALLoadingView.manager.showLoadingView(ofType: .message, windowMode: .windowed)
         ALLoadingView.manager.hideLoadingView(withDelay: 2.0)
     }
     
@@ -48,6 +50,7 @@ class ViewController: UIViewController {
         ALLoadingView.manager.resetToDefaults()
         ALLoadingView.manager.blurredBackground = true
         ALLoadingView.manager.animationDuration = 1.0
+        ALLoadingView.manager.itemSpacing = 30.0
         ALLoadingView.manager.showLoadingView(ofType: .messageWithIndicator, windowMode: .fullscreen)
         ALLoadingView.manager.hideLoadingView(withDelay: 2.0)
     }
@@ -55,6 +58,7 @@ class ViewController: UIViewController {
     @IBAction func action_testCaseThree(_ sender: AnyObject) {
         ALLoadingView.manager.resetToDefaults()
         ALLoadingView.manager.blurredBackground = true
+        ALLoadingView.manager.itemSpacing = 50.0
         ALLoadingView.manager.showLoadingView(ofType: .messageWithIndicatorAndCancelButton, windowMode: .fullscreen)
         ALLoadingView.manager.cancelCallback = {
             ALLoadingView.manager.hideLoadingView()
@@ -63,6 +67,7 @@ class ViewController: UIViewController {
     
     @IBAction func action_testCaseFour(_ sender: AnyObject) {
         ALLoadingView.manager.resetToDefaults()
+        ALLoadingView.manager.itemSpacing = 30.0
         ALLoadingView.manager.showLoadingView(ofType: .progress) {
             finished in
             ALLoadingView.manager.updateProgressLoadingView(withMessage: "Initializing", forProgress: 0.05)
@@ -81,4 +86,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
