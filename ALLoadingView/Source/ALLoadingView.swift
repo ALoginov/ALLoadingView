@@ -25,6 +25,8 @@ import UIKit
 public typealias ALLVCompletionBlock = () -> Void
 public typealias ALLVCancelBlock = () -> Void
 
+private let kALLoadingViewDebugModeKey = true
+
 public enum ALLVType {
     case basic
     case message
@@ -66,6 +68,9 @@ public class ALLoadingView: NSObject {
     public lazy var textColor: UIColor = UIColor(white: 1.0, alpha: 1.0)
     public lazy var messageFont: UIFont = UIFont.systemFont(ofSize: 25.0)
     public lazy var messageText: String = "Loading"
+    public var isPresented: Bool {
+        return loadingViewPresented
+    }
     
     //MARK: Adjusment
     public var windowRatio: CGFloat = 0.4 {
@@ -75,7 +80,16 @@ public class ALLoadingView: NSObject {
     }
     
     //MARK: - Private variables
-    private var loadingViewProgress: ALLVProgress
+    private var loadingViewPresented: Bool = false
+    private var loadingViewProgress: ALLVProgress {
+        didSet {
+            if loadingViewProgress == .hidden {
+                loadingViewPresented = false
+            } else {
+                loadingViewPresented = true
+            }
+        }
+    }
     private var loadingViewType: ALLVType
     private var operationQueue = OperationQueue()
     private var blankIntrinsicContentSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
@@ -339,6 +353,19 @@ public class ALLoadingView: NSObject {
         stackView.distribution = .equalCentering
         stackView.alignment = .center
         stackView.spacing = itemSpacing
+        
+        if kALLoadingViewDebugModeKey {
+            let backgroundView = UIView(frame: CGRect.zero)
+            backgroundView.backgroundColor = UIColor.green
+            
+            stackView.addSubview(backgroundView)
+            stackView.sendSubview(toBack: backgroundView)
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
+            backgroundView.leftAnchor.constraint(equalTo: stackView.leftAnchor).isActive = true
+            backgroundView.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0).isActive = true
+            backgroundView.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1.0).isActive = true
+        }
     }
     
     private func attachLoadingViewToContainer() {
