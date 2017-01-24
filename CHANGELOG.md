@@ -1,3 +1,13 @@
+## [1.1.1](https://github.com/ALoginov/ALLoadingView/releases/tag/v1.1.1)
+Released on 24/01/2017
+
+#### Added
+- `isPresented` read-only flag for checking loading view state
+- `.progressWithCancelButton` added to the list of available `ALLVTypes` [iFreedive](https://github.com/iFreedive) [#0003](https://github.com/ALoginov/ALLoadingView/issues/3)
+
+#### Updated
+- Readme file updated with more examples of ALLV usage
+
 ## [1.1.0](https://github.com/ALoginov/ALLoadingView/releases/tag/v1.1.0)
 Released on 12/01/2017
 
