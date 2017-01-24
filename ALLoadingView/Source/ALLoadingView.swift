@@ -33,6 +33,7 @@ public enum ALLVType {
     case messageWithIndicator
     case messageWithIndicatorAndCancelButton
     case progress
+    case progressWithCancelButton
 }
 
 public enum ALLVWindowMode {
@@ -51,7 +52,7 @@ private enum ALLVProgress {
 // building blocks
 private enum ALLVViewType {
     case blankSpace
-    case messagTextView
+    case messageTextView
     case progressBar
     case cancelButton
     case activityIndicator
@@ -242,7 +243,7 @@ public class ALLoadingView: NSObject {
         guard self.loadingViewProgress == .loaded else {
             return
         }
-        assert(loadingViewType == .progress, "ALLoadingView Update Error. Set ALLVType to 'Progress' to access progress bar.")
+        assert([.progress, .progressWithCancelButton].contains(loadingViewType), "ALLoadingView Update Error. Set ALLVType to 'Progress' to access progress bar.")
         
         DispatchQueue.main.async {
             self.progress_updateProgressControls(withData: ["message": message, "progress" : progress])
@@ -267,9 +268,7 @@ public class ALLoadingView: NSObject {
     }
     
     public func updateMessageLabel(withText message: String) {
-        assert(loadingViewType == .message ||
-            loadingViewType == .messageWithIndicator ||
-            loadingViewType == .messageWithIndicatorAndCancelButton, "ALLoadingView Update Error. Set .Message, .MessageWithIndicator and .MessageWithIndicatorAndCancelButton type to access message label.")
+        assert([.message, .messageWithIndicator, .messageWithIndicatorAndCancelButton].contains(loadingViewType), "ALLoadingView Update Error. Set .Message, .MessageWithIndicator and .MessageWithIndicatorAndCancelButton type to access message label.")
         
         DispatchQueue.main.async {
             self.progress_updateProgressControls(withData: ["message": message])
@@ -295,6 +294,16 @@ public class ALLoadingView: NSObject {
             break
         case .progress:
             updateProgressLoadingView(withMessage: messageText, forProgress: 0.0)
+            break
+        case .progressWithCancelButton:
+            updateProgressLoadingView(withMessage: messageText, forProgress: 0.0)
+            
+            for view in subviews {
+                if view is UIButton {
+                    (view as! UIButton).setTitle("Cancel", for: UIControlState())
+                    (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
+                }
+            }
             break
         default:
             break
@@ -455,17 +464,19 @@ public class ALLoadingView: NSObject {
         case .basic:
             return [.activityIndicator]
         case .message:
-            return [.messagTextView]
+            return [.messageTextView]
         case .messageWithIndicator:
-            return [.messagTextView, .activityIndicator]
+            return [.messageTextView, .activityIndicator]
         case .messageWithIndicatorAndCancelButton:
             if self.loadingViewWindowMode == ALLVWindowMode.windowed {
-                return [.messagTextView, .activityIndicator, .cancelButton]
+                return [.messageTextView, .activityIndicator, .cancelButton]
             } else {
-                return [.messagTextView, .activityIndicator, .cancelButton]
+                return [.messageTextView, .activityIndicator, .cancelButton]
             }
         case .progress:
-            return [.messagTextView, .progressBar]
+            return [.messageTextView, .progressBar]
+        case .progressWithCancelButton:
+            return [.messageTextView, .progressBar, .cancelButton]
         }
     }
     
@@ -510,7 +521,7 @@ public class ALLoadingView: NSObject {
     //MARK: Initializing subviews
     private func initializeView(withType type: ALLVViewType, andFrame frame: CGRect) -> UIView {
         switch type {
-        case .messagTextView:
+        case .messageTextView:
             return view_messageTextView()
         case .activityIndicator:
             return view_activityIndicator()
