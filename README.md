@@ -9,9 +9,10 @@
 ### Description
 `ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress. Written in `Swift 3`
 
-### Latest release [1.1.0]
+### Latest release [1.1.1]
 - UIStackView is used for positioning subviews
 - `itemSpacing` property introduced to edit spacing of elements in stack view
+- `isPresented` read-only flag for checking loading view state
 - For more information, see [Changelog](https://github.com/ALoginov/ALLoadingView/blob/master/CHANGELOG.md)
 
 ### Versions
@@ -44,8 +45,31 @@ it, simply add the following line to your Podfile:
 pod "ALLoadingView"
 ```
 
+## Available types of loading views
+Currently there are 6 types available:
+- `.basic`: small white activity indicator in the center
+- `.message`: UITextView with text specified by `.messageText` property
+- `.messageWithIndicator`: UITextView with activity indicator
+- `.messageWithIndicatorAndCancelButton`: UITextView with activity indicat and button. Assign `.cancelCallback` property to edit button action.
+- `.progress`: UITextView with default UIProgressView (2px height)
+- `.progressWithCancelButton`: UITextView with default UIProgressView and cancel button
+
 ## Usage
 > Following examples are working on version 1.0.0+.
+
+#### Showing loading view 
+For presenting ALLoadingView you should call `showLoadingView` function. At least you have to specify `ALLVType` of loading view. `ALLVWindowType` and `completionBlock` are optional.
+```swift
+// Specifying only type
+ALLoadingView.manager.showLoadingView(ofType: .basic)
+// Type and window mode
+ALLoadingView.manager.showLoadingView(ofType: .basic, windowMode: .fullscreen)
+// Type, window mode, completion block
+ALLoadingView.manager.showLoadingView(ofType: .basic) {
+    finished in
+
+}
+```
 
 #### Simple loading view with activity indicator 
 ```swift
@@ -55,11 +79,25 @@ ALLoadingView.manager.hideLoadingView(withDelay: 2.0)
 #### Loading view with blurred background and button to cancel
 ```swift
 ALLoadingView.manager.blurredBackground = true
-ALLoadingView.manager.showLoadingView(ofType: .messageWithIndicator, windowMode: .fullscreen)
+ALLoadingView.manager.showLoadingView(ofType: .messageWithIndicatorAndCancelButton, windowMode: .fullscreen)
 ALLoadingView.manager.cancelCallback = {
     ALLoadingView.manager.hideLoadingView()
 }
 ```
+
+#### Adjusting apperance 
+Size of loading view in windowed mode can be adjusted with `windowRatio` property. It takes values from `0.4` to `1.0` to represent
+window sizes from 40% to 100% percent of screen.
+```swift
+ALLoadingView.manager.windowRatio = 0.6
+```
+
+Elements positions can be adjusted with `itemSpacing` property. Default value is 20. Bigger value will increase 
+spacing between elements (text view, progress view etc). Negative value will lead to overlapping.
+```swift
+ALLoadingView.manager.itemSpacing = 50.0
+```
+
 #### Resetting values to defaults
 Loading view manager class is made as a singleton, so you can set different settings for loading view at various parts of your application.
 ```swift
