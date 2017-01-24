@@ -25,7 +25,7 @@ import UIKit
 public typealias ALLVCompletionBlock = () -> Void
 public typealias ALLVCancelBlock = () -> Void
 
-private let kALLoadingViewDebugModeKey = true
+private let kALLoadingViewDebugModeKey = false
 
 public enum ALLVType {
     case basic
