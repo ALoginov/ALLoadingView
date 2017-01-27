@@ -6,29 +6,29 @@
 [![Platform](https://img.shields.io/cocoapods/p/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
 [![Language](https://img.shields.io/badge/Swift-3.0-orange.svg)](http://cocoapods.org/pods/ALLoadingView)
 
-### Description
+## Description
 `ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress. Written in `Swift 3`
 
-### Latest release [1.1.1]
+### Latest release [1.1.2]
 - UIStackView is used for positioning subviews
 - `itemSpacing` property introduced to edit spacing of elements in stack view
 - `isPresented` read-only flag for checking loading view state
 - For more information, see [Changelog](https://github.com/ALoginov/ALLoadingView/blob/master/CHANGELOG.md)
 
-### Versions
+## Versions
 `1.0.0+` supports Swift 3 version, `0.1.4` - Swift 2.2 
 
 [![ALLV Screenshot 1](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1.png)
 [![ALLV Screenshot 2](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2.png)
 [![ALLV Screenshot 3](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot3-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot3.png)
 
-### Requirements
+## Requirements
 
 - iOS 9.0+
 - Xcode 8.0+
 - Swift 3.0+
 
-### Testing the project
+## Testing the project
 To test the project, just run `ALLoadingView.xcodeproj`
 
 You can check the project on [CocoaControls project page](https://www.cocoacontrols.com/controls/alloadingview) or directly at [Appetize.io page](https://appetize.io/app/0p8hwrukfhq096bz8nzu29e5aw?device=iphone5s&scale=75&orientation=portrait&osVersion=8.4).
@@ -42,7 +42,7 @@ ALLoadingView is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "ALLoadingView"
+pod 'ALLoadingView'
 ```
 
 ## Available types of loading views
@@ -104,17 +104,17 @@ Loading view manager class is made as a singleton, so you can set different sett
 ALLoadingView.manager.resetToDefaults()
 ```
 
-### Contact
+## Contact
 
 - [GitHub](http://github.com/ALoginov)
 - [Twitter](http://twitter.com/ibvene)
 - [Email](mailto:artemloginov@dilarc.com)
 
-### License
+## License
 
 #### MIT License
 
-Copyright (c) 2015 Artem Loginov
+Copyright (c) 2015-2017 Artem Loginov
 
 Permission is hereby granted,  free of charge,  to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
