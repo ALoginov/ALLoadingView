@@ -1,43 +1,64 @@
-/*
- Copyright (c) 2015 Artem Loginov
- 
- Permission is hereby granted,  free of charge,  to any person obtaining a
- copy of this software and associated documentation files (the "Software"),
- to deal in the Software without restriction, including without limitation
- the rights to  use, copy, modify, merge, publish, distribute, sublicense,
- and/or sell copies of the Software, and to permit persons to whom the
- Software is furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- DEALINGS IN THE SOFTWARE.
- */
+ //
+ //  ALLoadingView.swift
+ //
+ //  Copyright (c) 2015-2017 Artem Loginov
+ //
+ //  Permission is hereby granted, free of charge, to any person obtaining a copy
+ //  of this software and associated documentation files (the "Software"), to deal
+ //  in the Software without restriction, including without limitation the rights
+ //  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ //  copies of the Software, and to permit persons to whom the Software is
+ //  furnished to do so, subject to the following conditions:
+ //
+ //  The above copyright notice and this permission notice shall be included in
+ //  all copies or substantial portions of the Software.
+ //
+ //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ //  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ //  THE SOFTWARE.
+ //
 
 import UIKit
 
+/// The closure called when loading view is presented or removed from screen.
 public typealias ALLVCompletionBlock = () -> Void
+ 
+/// The closure is called when cancel button is tapped
 public typealias ALLVCancelBlock = () -> Void
 
 private let kALLoadingViewDebugModeKey = false
 
+/// Loading view types definitions
 public enum ALLVType {
+    /// Loading view with UIActivityIndicatorView, .white style, in the center.
     case basic
+    
+    /// Loading view with UITextView in the center for representing message (specified by `messageText`).
     case message
+    
+    /// Loading view with UIActivityIndicatorView and UITextView for representing message (specified by `messageText`).
     case messageWithIndicator
+    
+    /// Loading view with UIActivityIndicatorView, UITextView and simple UIButton. Button action is specified by `cancelCallback` property.
     case messageWithIndicatorAndCancelButton
+    
+    /// Loading view with UITextView and UIProgressView
     case progress
+    
+    /// Loading view with UITextView, UIProgressView and simple UIButton. Button action is specified by `cancelCallback` property.
     case progressWithCancelButton
 }
 
+/// Loading view size modes
 public enum ALLVWindowMode {
+    /// Loading view will take fullscreen. Content is centered.
     case fullscreen
+    
+    /// Loading view will take only part of the screen. Specified by `windowRatio`.
     case windowed
 }
 
@@ -58,22 +79,39 @@ private enum ALLVViewType {
     case activityIndicator
 }
 
+/// `ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress.
+///
+/// For operating loading views and editing attributes use shared entity `manager`. For supporting different 
+/// appearances and layouts use `-resetToDefaults()` method before setting up options for each case.
 public class ALLoadingView: NSObject {
     //MARK: - Public variables
+    /// Duration of loading view's appearance/disappearance animation. 0.5 seconds by default.
     public var animationDuration: TimeInterval = 0.5
+    /// Spacing between loading view elements. 20 px by default.
     public var itemSpacing: CGFloat = 20.0
+    /// Corner radius of loading view. Visible for `windowed` window mode. 0 by default.
     public var cornerRadius: CGFloat = 0.0
+    /// Callback for cancel button.
     public var cancelCallback: ALLVCancelBlock?
+    /// Flag for applying blur for background. False by default, `backgroundColor` is used.
     public var blurredBackground: Bool = false
+    /// Background color for loading view if `blurredBackground` is disabled.
     public lazy var backgroundColor: UIColor = UIColor(white: 0.0, alpha: 0.5)
+    /// Color of text message. White by default.
     public lazy var textColor: UIColor = UIColor(white: 1.0, alpha: 1.0)
+    /// Font of message text view.
     public lazy var messageFont: UIFont = UIFont.systemFont(ofSize: 25.0)
+    /// Text message. "Loading" by default.
     public lazy var messageText: String = "Loading"
+    /// Read-only flag for checking is loading view is presented on screen. Also returns TRUE during disappearance/appearance animation.
     public var isPresented: Bool {
         return loadingViewPresented
     }
     
-    //MARK: Adjusment
+    // MARK: Size adjusments
+    
+    /// Determing size of loading view if `windowed` window mode is selected. Takes values from 0.3 to 1.0. Loading view will have height/width equal
+    /// to 30% to 100% percent of minimum screen side respectively. Yes, fullscreen or square for now.
     public var windowRatio: CGFloat = 0.4 {
         didSet {
             windowRatio = min(max(0.3, windowRatio), 1.0)
@@ -128,6 +166,8 @@ public class ALLoadingView: NSObject {
     }
     
     //MARK: - Initialization
+    
+    /// Creates a shared entity for operating loading views
     public class var manager: ALLoadingView {
         struct Singleton {
             static let instance = ALLoadingView()
@@ -141,8 +181,14 @@ public class ALLoadingView: NSObject {
         loadingViewType = .basic
     }
     
-    //MARK: - Public methods
-    //MARK: Show loading view
+    // MARK: - Public methods
+    // MARK: Show loading view
+    
+    /// Show loading view with selected type. Loading view will be added as a subview to main UIWindow in hierarchy. 
+    ///
+    /// - parameter type: Type of the loading view.
+    /// - parameter windowMode: Type of window mode. Optional. `fullscreen` by default.
+    /// - parameter completionBlock: The closure called when loading view is presented. Optional.
     public func showLoadingView(ofType type: ALLVType, windowMode: ALLVWindowMode? = nil, completionBlock: ALLVCompletionBlock? = nil) {
         assert(loadingViewProgress == .hidden || loadingViewProgress == .hiding, "ALLoadingView Presentation Error. Trying to push loading view while there is one already presented")
 
@@ -181,7 +227,12 @@ public class ALLoadingView: NSObject {
         }
     }
     
-    //MARK: Hiding loading view
+    // MARK: Hiding loading view
+    
+    /// Hide loading view with delay.
+    ///
+    /// - parameter delay: Time interval for delay. Optional. 0 by default
+    /// - parameter completionBlock: The closure called when loading view is removed. Optional.
     public func hideLoadingView(withDelay delay: TimeInterval? = nil, completionBlock: ALLVCompletionBlock? = nil) {
         let delayValue : TimeInterval = delay ?? 0.0
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delayValue * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
@@ -222,7 +273,9 @@ public class ALLoadingView: NSObject {
         self.loadingView = nil
     }
     
-    //MARK: Reset to defaults
+    // MARK: Reset to defaults
+    
+    /// Reset all appearance parameters. For default value check corresponding property.
     public func resetToDefaults() {
         self.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
         self.textColor = UIColor(white: 1.0, alpha: 1.0)
@@ -238,7 +291,12 @@ public class ALLoadingView: NSObject {
         self.loadingViewType = .basic
     }
     
-    //MARK: Updating subviews data
+    // MARK: Updating subviews data
+    
+    /// Update loading view progress view value and text view message. If using only text view, use `-updateMessageLabel()`.
+    ///
+    /// - parameter message: String for UITextView.
+    /// - parameter progress: Progress value for UIProgressView.
     public func updateProgressLoadingView(withMessage message: String, forProgress progress: Float) {
         guard self.loadingViewProgress == .loaded else {
             return
@@ -250,6 +308,9 @@ public class ALLoadingView: NSObject {
         }
     }
     
+    /// Update UITextView and UIProgressView with specified values. Declared as public for proper selector isage. 
+    ///
+    /// - parameter data: Dictionary with message string and progress value. Keys: "message", "progress"
     public func progress_updateProgressControls(withData data: NSDictionary) {
         let message = data["message"] as? String ?? ""
         let progress = data["progress"] as? Float ?? 0.0
@@ -267,6 +328,9 @@ public class ALLoadingView: NSObject {
         checkContentSize()
     }
     
+    /// Update text view message.
+    ///
+    /// - parameter message: String for UITextView.
     public func updateMessageLabel(withText message: String) {
         assert([.message, .messageWithIndicator, .messageWithIndicatorAndCancelButton].contains(loadingViewType), "ALLoadingView Update Error. Set .Message, .MessageWithIndicator and .MessageWithIndicatorAndCancelButton type to access message label.")
         
@@ -568,7 +632,7 @@ public class ALLoadingView: NSObject {
         return progressView
     }
     
-    //MARK: Subviews actions
+    // MARK: Subviews actions
     public func cancelButtonTapped(_ sender: AnyObject?) {
         if let _ = sender as? UIButton {
             cancelCallback?()

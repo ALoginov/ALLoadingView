@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ALLoadingView  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="ALLoadingView  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">ALLoadingView Docs</a> (96% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">ALLoadingView Reference</a>
+        <img id="carat" src="img/carat.png" />
+        ALLoadingView  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/ALLoadingView.html">ALLoadingView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/ALLVType.html">ALLVType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ALLVWindowMode.html">ALLVWindowMode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:13ALLoadingView15ALLVCancelBlock">ALLVCancelBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:13ALLoadingView19ALLVCompletionBlock">ALLVCompletionBlock</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <a href='#alloadingview' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='alloadingview'>ALLoadingView</h1>
+
+<p><a href="http://cocoapods.org/pods/ALLoadingView"><img src="https://img.shields.io/cocoapods/v/ALLoadingView.svg?style=flat" alt="Version"></a>
+<img src="https://img.shields.io/badge/iOS%20version-9.0%2B-green.svg" alt="Min iOS Version">
+<a href="http://cocoapods.org/pods/ALLoadingView"><img src="https://img.shields.io/cocoapods/l/ALLoadingView.svg?style=flat" alt="License"></a>
+<a href="http://cocoapods.org/pods/ALLoadingView"><img src="https://img.shields.io/cocoapods/p/ALLoadingView.svg?style=flat" alt="Platform"></a>
+<a href="http://cocoapods.org/pods/ALLoadingView"><img src="https://img.shields.io/badge/Swift-3.0-orange.svg" alt="Language"></a></p>
+<a href='#description' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='description'>Description</h3>
+
+<p><code>ALLoadingView</code> is a class for displaying pop-up views to notify users that some work is in progress. Written in <code>Swift 3</code></p>
+<a href='#latest-release-1-1-1' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='latest-release-1-1-1'>Latest release [1.1.1]</h3>
+
+<ul>
+<li>UIStackView is used for positioning subviews</li>
+<li><code>itemSpacing</code> property introduced to edit spacing of elements in stack view</li>
+<li><code>isPresented</code> read-only flag for checking loading view state</li>
+<li>For more information, see <a href="https://github.com/ALoginov/ALLoadingView/blob/master/CHANGELOG.md">Changelog</a></li>
+</ul>
+<a href='#versions' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='versions'>Versions</h3>
+
+<p><code>1.0.0+</code> supports Swift 3 version, <code>0.1.4</code> - Swift 2.2 </p>
+
+<p><a href="http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1.png"><img src="http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1-thumb.png" alt="ALLV Screenshot 1"></a>
+<a href="http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2.png"><img src="http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2-thumb.png" alt="ALLV Screenshot 2"></a>
+<a href="http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot3.png"><img src="http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot3-thumb.png" alt="ALLV Screenshot 3"></a></p>
+<a href='#requirements' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='requirements'>Requirements</h3>
+
+<ul>
+<li>iOS 9.0+</li>
+<li>Xcode 8.0+</li>
+<li>Swift 3.0+</li>
+</ul>
+<a href='#testing-the-project' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='testing-the-project'>Testing the project</h3>
+
+<p>To test the project, just run <code>ALLoadingView.xcodeproj</code></p>
+
+<p>You can check the project on <a href="https://www.cocoacontrols.com/controls/alloadingview">CocoaControls project page</a> or directly at <a href="https://appetize.io/app/0p8hwrukfhq096bz8nzu29e5aw?device=iphone5s&amp;scale=75&amp;orientation=portrait&amp;osVersion=8.4">Appetize.io page</a>.</p>
+<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+<a href='#manually' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='manually'>Manually</h3>
+
+<ul>
+<li>Drag the <code>ALLoadingView.swift</code> file into your project</li>
+</ul>
+<a href='#cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='cocoapods'>CocoaPods</h3>
+
+<p>ALLoadingView is available through <a href="http://cocoapods.org">CocoaPods</a>. To install
+it, simply add the following line to your Podfile:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"ALLoadingView"</span>
+</code></pre>
+<a href='#available-types-of-loading-views' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='available-types-of-loading-views'>Available types of loading views</h2>
+
+<p>Currently there are 6 types available:
+- <code>.basic</code>: small white activity indicator in the center
+- <code>.message</code>: UITextView with text specified by <code>.messageText</code> property
+- <code>.messageWithIndicator</code>: UITextView with activity indicator
+- <code>.messageWithIndicatorAndCancelButton</code>: UITextView with activity indicat and button. Assign <code>.cancelCallback</code> property to edit button action.
+- <code>.progress</code>: UITextView with default UIProgressView (2px height)
+- <code>.progressWithCancelButton</code>: UITextView with default UIProgressView and cancel button</p>
+<a href='#usage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='usage'>Usage</h2>
+
+<blockquote>
+<p>Following examples are working on version 1.0.0+.</p>
+</blockquote>
+<a href='#showing-loading-view' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='showing-loading-view'>Showing loading view</h4>
+
+<p>For presenting ALLoadingView you should call <code>showLoadingView</code> function. At least you have to specify <code>ALLVType</code> of loading view. <code>ALLVWindowType</code> and <code>completionBlock</code> are optional.
+&ldquo;`swift
+// Specifying only type
+ALLoadingView.manager.showLoadingView(ofType: .basic)
+// Type and window mode
+ALLoadingView.manager.showLoadingView(ofType: .basic, windowMode: .fullscreen)
+// Type, window mode, completion block
+ALLoadingView.manager.showLoadingView(ofType: .basic) {
+    finished in</p>
+
+<p>}
+&rdquo;`</p>
+<a href='#simple-loading-view-with-activity-indicator' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='simple-loading-view-with-activity-indicator'>Simple loading view with activity indicator</h4>
+<pre class="highlight swift"><code><span class="kt">ALLoadingView</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="nf">showLoadingView</span><span class="p">(</span><span class="nv">ofType</span><span class="p">:</span> <span class="o">.</span><span class="n">basic</span><span class="p">,</span> <span class="nv">windowMode</span><span class="p">:</span> <span class="o">.</span><span class="n">windowed</span><span class="p">)</span>
+<span class="kt">ALLoadingView</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="nf">hideLoadingView</span><span class="p">(</span><span class="nv">withDelay</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">)</span>
+</code></pre>
+<a href='#loading-view-with-blurred-background-and-button-to-cancel' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='loading-view-with-blurred-background-and-button-to-cancel'>Loading view with blurred background and button to cancel</h4>
+<pre class="highlight swift"><code><span class="kt">ALLoadingView</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">blurredBackground</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="kt">ALLoadingView</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="nf">showLoadingView</span><span class="p">(</span><span class="nv">ofType</span><span class="p">:</span> <span class="o">.</span><span class="n">messageWithIndicatorAndCancelButton</span><span class="p">,</span> <span class="nv">windowMode</span><span class="p">:</span> <span class="o">.</span><span class="n">fullscreen</span><span class="p">)</span>
+<span class="kt">ALLoadingView</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">cancelCallback</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="kt">ALLoadingView</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="nf">hideLoadingView</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre>
+<a href='#adjusting-apperance' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='adjusting-apperance'>Adjusting apperance</h4>
+
+<p>Size of loading view in windowed mode can be adjusted with <code>windowRatio</code> property. It takes values from <code>0.4</code> to <code>1.0</code> to represent
+window sizes from 40% to 100% percent of screen.
+<code>swift
+ALLoadingView.manager.windowRatio = 0.6
+</code></p>
+
+<p>Elements positions can be adjusted with <code>itemSpacing</code> property. Default value is 20. Bigger value will increase 
+spacing between elements (text view, progress view etc). Negative value will lead to overlapping.
+<code>swift
+ALLoadingView.manager.itemSpacing = 50.0
+</code></p>
+<a href='#resetting-values-to-defaults' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='resetting-values-to-defaults'>Resetting values to defaults</h4>
+
+<p>Loading view manager class is made as a singleton, so you can set different settings for loading view at various parts of your application.
+<code>swift
+ALLoadingView.manager.resetToDefaults()
+</code></p>
+<a href='#contact' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='contact'>Contact</h3>
+
+<ul>
+<li><a href="http://github.com/ALoginov">GitHub</a></li>
+<li><a href="http://twitter.com/ibvene">Twitter</a></li>
+<li><a href="mailto:artemloginov@dilarc.com">Email</a></li>
+</ul>
+<a href='#license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='license'>License</h3>
+<a href='#mit-license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='mit-license'>MIT License</h4>
+
+<p>Copyright &copy; 2015 Artem Loginov</p>
+
+<p>Permission is hereby granted,  free of charge,  to any person obtaining a
+copy of this software and associated documentation files (the <q>Software</q>),
+to deal in the Software without restriction, including without limitation
+the rights to  use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED <q>AS IS</q>, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://github.com/ALoginov/ALLoadingView" target="_blank" rel="external">ALoginov</a>. All rights reserved. (Last updated: 2017-01-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
