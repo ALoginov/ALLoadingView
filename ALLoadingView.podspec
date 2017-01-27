@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'ALLoadingView'
-s.version          = '1.1.1'
+s.version          = '1.1.2'
 s.summary          = 'Manager for loading views presentation'
 
 s.description      = 'ALLoadingView is a class for displaying pop-up views to notify users that some work is in progress.'
