@@ -1,4 +1,10 @@
-## [1.1.1](https://github.com/ALoginov/ALLoadingView/releases/tag/v1.1.1)
+## [1.1.2](https://github.com/ALoginov/ALLoadingView/releases/tag/1.1.2)
+Released on 27/01/2017
+
+#### Added
+- Documentation added (check `index.html` in /docs folder)
+
+## [1.1.1](https://github.com/ALoginov/ALLoadingView/releases/tag/1.1.1)
 Released on 24/01/2017
 
 #### Added
