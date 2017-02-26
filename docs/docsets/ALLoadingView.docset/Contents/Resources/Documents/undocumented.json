@@ -2,7 +2,7 @@
   "warnings": [
     {
       "file": "/Users/artemloginov/Documents/Libraries/ALLoadingView/ALLoadingView/Source/ALLoadingView.swift",
-      "line": 636,
+      "line": 629,
       "symbol": "ALLoadingView.cancelButtonTapped(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
