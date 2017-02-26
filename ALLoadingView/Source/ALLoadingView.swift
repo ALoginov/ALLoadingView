@@ -298,20 +298,15 @@ public class ALLoadingView: NSObject {
     /// - parameter message: String for UITextView.
     /// - parameter progress: Progress value for UIProgressView.
     public func updateProgressLoadingView(withMessage message: String, forProgress progress: Float) {
-        guard self.loadingViewProgress == .loaded else {
-            return
-        }
-        assert([.progress, .progressWithCancelButton].contains(loadingViewType), "ALLoadingView Update Error. Set ALLVType to 'Progress' to access progress bar.")
-        
         DispatchQueue.main.async {
             self.progress_updateProgressControls(withData: ["message": message, "progress" : progress])
         }
     }
     
-    /// Update UITextView and UIProgressView with specified values. Declared as public for proper selector isage. 
+    /// Update UITextView and UIProgressView with specified values.
     ///
     /// - parameter data: Dictionary with message string and progress value. Keys: "message", "progress"
-    public func progress_updateProgressControls(withData data: NSDictionary) {
+    private func progress_updateProgressControls(withData data: NSDictionary) {
         let message = data["message"] as? String ?? ""
         let progress = data["progress"] as? Float ?? 0.0
         
@@ -332,8 +327,6 @@ public class ALLoadingView: NSObject {
     ///
     /// - parameter message: String for UITextView.
     public func updateMessageLabel(withText message: String) {
-        assert([.message, .messageWithIndicator, .messageWithIndicatorAndCancelButton].contains(loadingViewType), "ALLoadingView Update Error. Set .Message, .MessageWithIndicator and .MessageWithIndicatorAndCancelButton type to access message label.")
-        
         DispatchQueue.main.async {
             self.progress_updateProgressControls(withData: ["message": message])
         }
@@ -560,8 +553,8 @@ public class ALLoadingView: NSObject {
         if stackViewSizeHeight == 0 {
             return
         }
-    
-        assert(stackViewSizeHeight >= contentSizeHeight, "ALLoadingView Presentation Error. Required content size is bigger than available space. Check item spacing property or label's content")
+        
+        assert(stackViewSizeHeight >= contentSizeHeight, "ALLoadingView Presentation Error. Required content size (\(contentSizeHeight)) is bigger than available space (\(stackViewSizeHeight)). Check 'itemSpacing', 'windowRatio' properties description or label's content")
     }
     
     //MARK: Loading view accessors & methods

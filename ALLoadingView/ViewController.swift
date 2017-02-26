@@ -76,6 +76,31 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func action_testCaseFive(_ sender: AnyObject) {
+        ALLoadingView.manager.resetToDefaults()
+        ALLoadingView.manager.itemSpacing = 20.0
+        ALLoadingView.manager.windowRatio = 0.6
+        ALLoadingView.manager.messageText = "Press on Cancel button to change text and progress value"
+        ALLoadingView.manager.showLoadingView(ofType: .progressWithCancelButton, windowMode: .windowed)
+        ALLoadingView.manager.cancelCallback = {
+            [unowned self] in
+            
+            self.iterate()
+        }
+    }
+    
+    var caseFiveStep = 0
+    func iterate() {
+        guard caseFiveStep < 5 else {
+            caseFiveStep = 0
+            ALLoadingView.manager.hideLoadingView()
+            return
+        }
+        caseFiveStep += 1
+        
+        ALLoadingView.manager.updateProgressLoadingView(withMessage: "Count = \(caseFiveStep)", forProgress: 0.2 * Float(caseFiveStep))
+    }
+    
     func updateProgress() {
         let steps = ["Initializing", "Downloading data", "Extracting files", "Parsing data", "Updating database", "Saving"]
         ALLoadingView.manager.updateProgressLoadingView(withMessage: steps[step], forProgress: 0.2 * Float(step))
