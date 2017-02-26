@@ -1,3 +1,16 @@
+## [1.1.3](https://github.com/ALoginov/ALLoadingView/releases/tag/1.1.3)
+Released on 26/02/2017
+
+#### Added
+- Implementation example for `.progressWithCancelButton` loading view type
+
+#### Updated
+- Message for content size assert check. It will inform you about aggregate content size and stack view size
+- Documentation updated
+
+#### Removed
+- Couple of assert checks for loading view state, prevented UI updates during apperance/disappearance animation. 
+
 ## [1.1.2](https://github.com/ALoginov/ALLoadingView/releases/tag/1.1.2)
 Released on 27/01/2017
 
