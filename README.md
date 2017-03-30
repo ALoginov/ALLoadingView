@@ -18,9 +18,9 @@
 ## Versions
 `1.0.0+` supports Swift 3 version, `0.1.4` - Swift 2.2 
 
-[![ALLV Screenshot 1](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot1.png)
-[![ALLV Screenshot 2](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot2.png)
-[![ALLV Screenshot 3](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot3-thumb.png)](http://dl.dropboxusercontent.com/u/72091593/Screenshots%20for%20GitHub/ALLV-screenshot3.png)
+[![ALLV Screenshot 1](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot1-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/ALLV-screenshot1.png)
+[![ALLV Screenshot 2](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot2-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/ALLV-screenshot2.png)
+[![ALLV Screenshot 3](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot3-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/ALLV-screenshot3.png)
 
 ## Requirements
 
