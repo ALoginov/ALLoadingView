@@ -69,7 +69,6 @@ class ViewController: UIViewController {
         ALLoadingView.manager.resetToDefaults()
         ALLoadingView.manager.itemSpacing = 30.0
         ALLoadingView.manager.showLoadingView(ofType: .progress) {
-            finished in
             ALLoadingView.manager.updateProgressLoadingView(withMessage: "Initializing", forProgress: 0.05)
             self.step = 1
             self.updateTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(ViewController.updateProgress), userInfo: nil, repeats: true)
@@ -101,7 +100,7 @@ class ViewController: UIViewController {
         ALLoadingView.manager.updateProgressLoadingView(withMessage: "Count = \(caseFiveStep)", forProgress: 0.2 * Float(caseFiveStep))
     }
     
-    func updateProgress() {
+    @objc func updateProgress() {
         let steps = ["Initializing", "Downloading data", "Extracting files", "Parsing data", "Updating database", "Saving"]
         ALLoadingView.manager.updateProgressLoadingView(withMessage: steps[step], forProgress: 0.2 * Float(step))
         step += 1

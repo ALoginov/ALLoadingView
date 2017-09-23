@@ -9,18 +9,20 @@
 ## Description
 `ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress. Written in `Swift 3`
 
-### Latest release [1.1.3]
+### Latest release [1.1.4]
 - UIStackView is used for positioning subviews
 - `itemSpacing` property introduced to edit spacing of elements in stack view
 - `isPresented` read-only flag for checking loading view state
 - For more information, see [Changelog](https://github.com/ALoginov/ALLoadingView/blob/master/CHANGELOG.md)
 
 ## Versions
-`1.0.0+` supports Swift 3 version, `0.1.4` - Swift 2.2 
+- `1.1.4+` - Swift 4.x
+- `1.0.0` - Swift 3.x
+- `0.1.4` - Swift 2.2 
 
-[![ALLV Screenshot 1](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot1-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/ALLV-screenshot1.png)
-[![ALLV Screenshot 2](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot2-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/ALLV-screenshot2.png)
-[![ALLV Screenshot 3](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot3-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/ALLV-screenshot3.png)
+[![ALLV Screenshot 1](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot1-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot1.png)
+[![ALLV Screenshot 2](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot2-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot2.png)
+[![ALLV Screenshot 3](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot3-thumb.png)](https://github.com/ALoginov/ALLoadingView/blob/master/images/ALLV-screenshot3.png)
 
 ## Requirements
 

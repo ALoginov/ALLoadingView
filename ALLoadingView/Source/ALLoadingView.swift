@@ -626,7 +626,7 @@ public class ALLoadingView: NSObject {
     }
     
     // MARK: Subviews actions
-    public func cancelButtonTapped(_ sender: AnyObject?) {
+    @objc public func cancelButtonTapped(_ sender: AnyObject?) {
         if let _ = sender as? UIButton {
             cancelCallback?()
         }

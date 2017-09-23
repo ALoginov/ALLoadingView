@@ -1,3 +1,11 @@
+## [1.1.4](https://github.com/ALoginov/ALLoadingView/releases/tag/1.1.4)
+Released on 23/09/2017
+
+#### Updated
+- Swift version updated to Swift 4
+- Added some annoying `@objc` prefixes for Objective-C selectors
+- `@objc interference` set to `Default` to remove warnings
+
 ## [1.1.3](https://github.com/ALoginov/ALLoadingView/releases/tag/1.1.3)
 Released on 26/02/2017
 
