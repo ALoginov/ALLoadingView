@@ -1,10 +1,14 @@
 Pod::Spec.new do |s|
 s.name             = 'ALLoadingView'
 <<<<<<< HEAD
+<<<<<<< HEAD
 s.version          = '1.1.6'
 =======
 s.version          = '1.1.4'
 >>>>>>> parent of 00f1ade... Update ALLoadingView.podspec
+=======
+s.version          = '1.1.5'
+>>>>>>> parent of 6a44ff5... Update ALLoadingView.podspec
 s.summary          = 'Manager for loading views presentation'
 
 s.description      = 'ALLoadingView is a class for displaying pop-up views to notify users that some work is in progress.'
