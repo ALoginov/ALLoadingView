@@ -33,7 +33,7 @@ public typealias ALLVCancelBlock = () -> Void
 private let kALLoadingViewDebugModeKey = false
 
 /// Loading view types definitions
-public enum ALLVType {
+@objc public enum ALLVType: UInt {
     /// Loading view with UIActivityIndicatorView, .white style, in the center.
     case basic
     
@@ -54,7 +54,7 @@ public enum ALLVType {
 }
 
 /// Loading view size modes
-public enum ALLVWindowMode {
+@objc public enum ALLVWindowMode: UInt {
     /// Loading view will take fullscreen. Content is centered.
     case fullscreen
     
@@ -62,7 +62,7 @@ public enum ALLVWindowMode {
     case windowed
 }
 
-private enum ALLVProgress {
+private enum ALLVProgress: UInt {
     case hidden
     case initializing
     case viewReady
@@ -71,7 +71,7 @@ private enum ALLVProgress {
 }
 
 // building blocks
-private enum ALLVViewType {
+private enum ALLVViewType: UInt {
     case blankSpace
     case messageTextView
     case progressBar
@@ -83,7 +83,7 @@ private enum ALLVViewType {
 ///
 /// For operating loading views and editing attributes use shared entity `manager`. For supporting different 
 /// appearances and layouts use `-resetToDefaults()` method before setting up options for each case.
-public class ALLoadingView: NSObject {
+@objc public class ALLoadingView: NSObject {
     //MARK: - Public variables
     /// Duration of loading view's appearance/disappearance animation. 0.5 seconds by default.
     public var animationDuration: TimeInterval = 0.5
@@ -189,11 +189,11 @@ public class ALLoadingView: NSObject {
     /// - parameter type: Type of the loading view.
     /// - parameter windowMode: Type of window mode. Optional. `fullscreen` by default.
     /// - parameter completionBlock: The closure called when loading view is presented. Optional.
-    public func showLoadingView(ofType type: ALLVType, windowMode: ALLVWindowMode? = nil, completionBlock: ALLVCompletionBlock? = nil) {
+    public func showLoadingView(ofType type: ALLVType, windowMode: ALLVWindowMode = .fullscreen, completionBlock: ALLVCompletionBlock? = nil) {
         assert(loadingViewProgress == .hidden || loadingViewProgress == .hiding, "ALLoadingView Presentation Error. Trying to push loading view while there is one already presented")
 
         loadingViewProgress = .initializing
-        loadingViewWindowMode = windowMode ?? .fullscreen
+        loadingViewWindowMode = windowMode
         loadingViewType = type
         
         let operationInit = BlockOperation { ()  -> Void in
@@ -233,8 +233,8 @@ public class ALLoadingView: NSObject {
     ///
     /// - parameter delay: Time interval for delay. Optional. 0 by default
     /// - parameter completionBlock: The closure called when loading view is removed. Optional.
-    public func hideLoadingView(withDelay delay: TimeInterval? = nil, completionBlock: ALLVCompletionBlock? = nil) {
-        let delayValue : TimeInterval = delay ?? 0.0
+    public func hideLoadingView(withDelay delay: TimeInterval = 0.0, completionBlock: ALLVCompletionBlock? = nil) {
+        let delayValue : TimeInterval = delay
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delayValue * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
             self.loadingViewProgress = .hiding
             self.animateLoadingViewDisappearance(withCompletion: completionBlock)
