@@ -131,7 +131,7 @@ public class ALLoadingView: NSObject {
     }
     private var loadingViewType: ALLVType
     private var operationQueue = OperationQueue()
-    private var blankIntrinsicContentSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
+    private var blankIntrinsicContentSize = CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
     // Subviews
     private var loadingView: UIView?
     private var appearanceView: UIView?
@@ -344,7 +344,7 @@ public class ALLoadingView: NSObject {
             
             for view in subviews {
                 if view is UIButton {
-                    (view as! UIButton).setTitle("Cancel", for: UIControlState())
+                    (view as! UIButton).setTitle("Cancel", for: UIControl.State())
                     (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
                 }
             }
@@ -357,7 +357,7 @@ public class ALLoadingView: NSObject {
             
             for view in subviews {
                 if view is UIButton {
-                    (view as! UIButton).setTitle("Cancel", for: UIControlState())
+                    (view as! UIButton).setTitle("Cancel", for: UIControl.State())
                     (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
                 }
             }
@@ -425,7 +425,7 @@ public class ALLoadingView: NSObject {
             backgroundView.backgroundColor = UIColor.green
             
             stackView.addSubview(backgroundView)
-            stackView.sendSubview(toBack: backgroundView)
+            stackView.sendSubviewToBack(backgroundView)
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
             backgroundView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
             backgroundView.leftAnchor.constraint(equalTo: stackView.leftAnchor).isActive = true
@@ -500,7 +500,7 @@ public class ALLoadingView: NSObject {
             
             stackView.addArrangedSubview(view)
 
-            if view.intrinsicContentSize.width == UIViewNoIntrinsicMetric {
+            if view.intrinsicContentSize.width == UIView.noIntrinsicMetric {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.widthAnchor.constraint(equalToConstant: frameForView.width).isActive = true
             }
@@ -592,7 +592,7 @@ public class ALLoadingView: NSObject {
     }
     
     private func view_activityIndicator() -> UIActivityIndicatorView {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
         activityIndicator.startAnimating()
         return activityIndicator
     }
@@ -613,7 +613,7 @@ public class ALLoadingView: NSObject {
     private func view_cancelButton(_ frame: CGRect) -> UIButton {
         let button = UIButton(type: .custom)
         button.frame = frame
-        button.setTitleColor(UIColor.white, for: UIControlState.normal)
+        button.setTitleColor(UIColor.white, for: UIControl.State.normal)
         button.backgroundColor = UIColor.clear
         return button
     }

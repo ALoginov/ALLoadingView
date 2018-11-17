@@ -1,3 +1,10 @@
+## 1.1.5
+Released on 17/11/2018
+
+#### Updated
+- Swift version updated to Swift 4.2
+- Xcode 10.1 support
+
 ## [1.1.4](https://github.com/ALoginov/ALLoadingView/releases/tag/1.1.4)
 Released on 23/09/2017
 

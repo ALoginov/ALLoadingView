@@ -4,12 +4,12 @@
 ![Min iOS Version](https://img.shields.io/badge/iOS%20version-9.0%2B-green.svg)
 [![License](https://img.shields.io/cocoapods/l/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
 [![Platform](https://img.shields.io/cocoapods/p/ALLoadingView.svg?style=flat)](http://cocoapods.org/pods/ALLoadingView)
-[![Language](https://img.shields.io/badge/Swift-3.0-orange.svg)](http://cocoapods.org/pods/ALLoadingView)
+[![Language](https://img.shields.io/badge/Swift-4.2-orange.svg)](http://cocoapods.org/pods/ALLoadingView)
 
 ## Description
 `ALLoadingView` is a class for displaying pop-up views to notify users that some work is in progress. Written in `Swift 3`
 
-### Latest release [1.1.4]
+### Latest release [1.1.5]
 - UIStackView is used for positioning subviews
 - `itemSpacing` property introduced to edit spacing of elements in stack view
 - `isPresented` read-only flag for checking loading view state
