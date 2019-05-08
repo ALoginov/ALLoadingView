@@ -13,6 +13,7 @@ s.source_files = 'ALLoadingView/Source/ALLoadingView.swift'
 
 s.requires_arc = true
 
+s.swift_version = '4.2'
 s.ios.deployment_target = '9.0'
 
 end

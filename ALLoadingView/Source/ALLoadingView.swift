@@ -83,7 +83,8 @@ private enum ALLVViewType: UInt {
 ///
 /// For operating loading views and editing attributes use shared entity `manager`. For supporting different 
 /// appearances and layouts use `-resetToDefaults()` method before setting up options for each case.
-@objc public class ALLoadingView: NSObject {
+@objcMembers
+public class ALLoadingView: NSObject {
     //MARK: - Public variables
     /// Duration of loading view's appearance/disappearance animation. 0.5 seconds by default.
     public var animationDuration: TimeInterval = 0.5
