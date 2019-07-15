@@ -103,6 +103,8 @@ public class ALLoadingView: NSObject {
     public lazy var messageFont: UIFont = UIFont.systemFont(ofSize: 25.0)
     /// Text message. "Loading" by default.
     public lazy var messageText: String = "Loading"
+    /// Text cancel button. "Cancel" by default.
+    public lazy var cancelText: String = "Cancel"
     /// Read-only flag for checking is loading view is presented on screen. Also returns TRUE during disappearance/appearance animation.
     public var isPresented: Bool {
         return loadingViewPresented
@@ -344,7 +346,7 @@ public class ALLoadingView: NSObject {
             
             for view in subviews {
                 if view is UIButton {
-                    (view as! UIButton).setTitle("Cancel", for: UIControl.State())
+                    (view as! UIButton).setTitle(cancelText, for: UIControl.State())
                     (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
                 }
             }
@@ -357,7 +359,7 @@ public class ALLoadingView: NSObject {
             
             for view in subviews {
                 if view is UIButton {
-                    (view as! UIButton).setTitle("Cancel", for: UIControl.State())
+                    (view as! UIButton).setTitle(cancelText, for: UIControl.State())
                     (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
                 }
             }
