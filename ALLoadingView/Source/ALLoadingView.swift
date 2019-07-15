@@ -346,7 +346,7 @@ public class ALLoadingView: NSObject {
             
             for view in subviews {
                 if view is UIButton {
-                    (view as! UIButton).setTitle(cancelText, for: UIControlState())
+                    (view as! UIButton).setTitle(cancelText, for: UIControl.State())
                     (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
                 }
             }
@@ -359,7 +359,7 @@ public class ALLoadingView: NSObject {
             
             for view in subviews {
                 if view is UIButton {
-                    (view as! UIButton).setTitle(cancelText, for: UIControlState())
+                    (view as! UIButton).setTitle(cancelText, for: UIControl.State())
                     (view as! UIButton).addTarget(self, action: #selector(ALLoadingView.cancelButtonTapped(_:)), for: .touchUpInside)
                 }
             }
